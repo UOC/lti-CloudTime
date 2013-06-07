@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/AWS/!svn/ver/4/trunk/utilities
+END
+request.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/AWS/!svn/ver/4/trunk/utilities/request.class.php
+END
+batchrequest.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/AWS/!svn/ver/4/trunk/utilities/batchrequest.class.php
+END
+info.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/AWS/!svn/ver/4/trunk/utilities/info.class.php
+END
+credentials.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/AWS/!svn/ver/4/trunk/utilities/credentials.class.php
+END
+response.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/AWS/!svn/ver/4/trunk/utilities/response.class.php
+END
+policy.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/AWS/!svn/ver/4/trunk/utilities/policy.class.php
+END
+stacktemplate.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/AWS/!svn/ver/4/trunk/utilities/stacktemplate.class.php
+END
+stepconfig.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/AWS/!svn/ver/4/trunk/utilities/stepconfig.class.php
+END
+hadoopbase.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/AWS/!svn/ver/4/trunk/utilities/hadoopbase.class.php
+END
+manifest.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/AWS/!svn/ver/4/trunk/utilities/manifest.class.php
+END
+hadoopstep.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/AWS/!svn/ver/4/trunk/utilities/hadoopstep.class.php
+END
+hadoopbootstrap.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/AWS/!svn/ver/4/trunk/utilities/hadoopbootstrap.class.php
+END
+json.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/AWS/!svn/ver/4/trunk/utilities/json.class.php
+END
+complextype.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/AWS/!svn/ver/4/trunk/utilities/complextype.class.php
+END
+credential.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/AWS/!svn/ver/4/trunk/utilities/credential.class.php
+END
+simplexml.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/AWS/!svn/ver/4/trunk/utilities/simplexml.class.php
+END
+utilities.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/AWS/!svn/ver/4/trunk/utilities/utilities.class.php
+END
+mimetypes.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/AWS/!svn/ver/4/trunk/utilities/mimetypes.class.php
+END
+gzipdecode.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/AWS/!svn/ver/4/trunk/utilities/gzipdecode.class.php
+END
+array.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/AWS/!svn/ver/4/trunk/utilities/array.class.php
+END

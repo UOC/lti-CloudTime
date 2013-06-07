@@ -1,0 +1,353 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests
+END
+method_send_multi_request_failed2.txt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_multi_request_failed2.txt
+END
+method_responsecore_isok_false.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_responsecore_isok_false.phpt
+END
+RequestCore-object_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/RequestCore-object_type.phpt
+END
+method_send_request_isok_200.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request_isok_200.phpt
+END
+HTTP_PUT.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/HTTP_PUT.phpt
+END
+method_set_useragent.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_set_useragent.phpt
+END
+prop_responsecore_header_content_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_responsecore_header_content_type.phpt
+END
+prop_response_body.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_response_body.phpt
+END
+test_request2.txt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/test_request2.txt
+END
+HTTP_GET.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/HTTP_GET.phpt
+END
+prop_curl_handle.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_curl_handle.phpt
+END
+prop_proxy.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_proxy.phpt
+END
+method_send_request_head.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request_head.phpt
+END
+method_send_request2.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request2.phpt
+END
+prop_response_class.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_response_class.phpt
+END
+HTTP_POST.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/HTTP_POST.phpt
+END
+prop_responsecore_body.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_responsecore_body.phpt
+END
+method_set_request_url.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_set_request_url.phpt
+END
+method_send_request_isok.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request_isok.phpt
+END
+method_send_request2_failed.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request2_failed.phpt
+END
+method_get_response_code.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_get_response_code.phpt
+END
+method_set_request_class.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_set_request_class.phpt
+END
+method_send_request_put.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request_put.phpt
+END
+RequestCore_Exception-get_parent_class.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/RequestCore_Exception-get_parent_class.phpt
+END
+test_request.txt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/test_request.txt
+END
+method_process_response.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_process_response.phpt
+END
+prop_useragent.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_useragent.phpt
+END
+method_set_response_class.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_set_response_class.phpt
+END
+HTTP_HEAD.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/HTTP_HEAD.phpt
+END
+method_add_header.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_add_header.phpt
+END
+method_get_response_header_content_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_get_response_header_content_type.phpt
+END
+method_send_request.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request.phpt
+END
+method_get_response_header_info_url.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_get_response_header_info_url.phpt
+END
+examples.yml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/examples.yml
+END
+method_send_request_failed.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request_failed.phpt
+END
+method_remove_header.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_remove_header.phpt
+END
+prop_request_body.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_request_body.phpt
+END
+method_set_credentials_user.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_set_credentials_user.phpt
+END
+AllTests.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/AllTests.php
+END
+method_get_response_body.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_get_response_body.phpt
+END
+prop_request_url.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_request_url.phpt
+END
+prop_responsecore_status.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_responsecore_status.phpt
+END
+method_send_multi_request.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_multi_request.phpt
+END
+prop_request_class.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_request_class.phpt
+END
+method_send_multi_request_failed.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_multi_request_failed.phpt
+END
+prop_method.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_method.phpt
+END
+RequestCore_Exception-class_exists.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/RequestCore_Exception-class_exists.phpt
+END
+prop_request_headers.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_request_headers.phpt
+END
+prop_method_post.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_method_post.phpt
+END
+prop_response_code.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_response_code.phpt
+END
+prop_response_info_url.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_response_info_url.phpt
+END
+method_responsecore_isok.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_responsecore_isok.phpt
+END
+method_set_proxy.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_set_proxy.phpt
+END
+method_set_credentials_pass.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_set_credentials_pass.phpt
+END
+HTTP_DELETE.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/HTTP_DELETE.phpt
+END
+method_send_request_array.txt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/method_send_request_array.txt
+END
+RequestCore-class_exists.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/RequestCore-class_exists.phpt
+END
+prop_response_info_content_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/AWS/!svn/ver/4/trunk/lib/requestcore/_tests/prop_response_info_content_type.phpt
+END

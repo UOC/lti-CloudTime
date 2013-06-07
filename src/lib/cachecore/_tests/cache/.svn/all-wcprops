@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/cache
+END
+sqlite.db
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/cache/sqlite.db
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/AWS/!svn/ver/4/trunk/lib/requestcore
+END
+cacert.pem
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/AWS/!svn/ver/4/trunk/lib/requestcore/cacert.pem
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/AWS/!svn/ver/4/trunk/lib/requestcore/LICENSE
+END
+requestcore.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/AWS/!svn/ver/4/trunk/lib/requestcore/requestcore.class.php
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/AWS/!svn/ver/4/trunk/lib/requestcore/README.md
+END

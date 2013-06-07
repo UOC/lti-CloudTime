@@ -1,0 +1,611 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests
+END
+memcached_prop_name.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_prop_name.phpt
+END
+file_prop_location.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_prop_location.phpt
+END
+xcache_prop_id.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_prop_id.phpt
+END
+CacheFile-object_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheFile-object_type.phpt
+END
+memcached_method_reset.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_reset.phpt
+END
+host=hostname;port=80;dbname=table
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/host=hostname%3Bport=80%3Bdbname=table
+END
+file_method_delete_false.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_delete_false.phpt
+END
+apc_method_response_manager_reset.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_response_manager_reset.phpt
+END
+xcache_method_create.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_create.phpt
+END
+xcache_prop_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_prop_timestamp.phpt
+END
+core_prop_location.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/core_prop_location.phpt
+END
+memcached_method_response_manager_reset.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_response_manager_reset.phpt
+END
+file_method_reset.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_reset.phpt
+END
+CacheXCache-class_exists.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheXCache-class_exists.phpt
+END
+apc_method_delete.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_delete.phpt
+END
+apc_method_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_timestamp.phpt
+END
+xcache_method_read.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_read.phpt
+END
+core_prop_expires.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/core_prop_expires.phpt
+END
+CachePDO-sqlite_class_implements.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CachePDO-sqlite_class_implements.phpt
+END
+CacheAPC-class_implements.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheAPC-class_implements.phpt
+END
+apc_method_delete_update.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_delete_update.phpt
+END
+memcached_method_delete.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_delete.phpt
+END
+xcache_method_update_read.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_update_read.phpt
+END
+xcache_prop_expires.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_prop_expires.phpt
+END
+file_prop_id.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_prop_id.phpt
+END
+xcache_prop_name.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_prop_name.phpt
+END
+CacheAPC-object_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheAPC-object_type.phpt
+END
+CachePDO-sqlite_object_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CachePDO-sqlite_object_type.phpt
+END
+file_prop_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_prop_timestamp.phpt
+END
+file_method_create.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_create.phpt
+END
+memcached_method_delete_false.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_delete_false.phpt
+END
+memcached_prop_expires.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_prop_expires.phpt
+END
+xcache_method_response_manager_reset.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_response_manager_reset.phpt
+END
+memcached_method_timestamp_nocreate.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_timestamp_nocreate.phpt
+END
+file_method_read.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_read.phpt
+END
+apc_method_response_manager.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_response_manager.phpt
+END
+file_method_update_read.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_update_read.phpt
+END
+xcache_method_delete.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_delete.phpt
+END
+file_prop_expires.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_prop_expires.phpt
+END
+CacheCore-class_exists.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheCore-class_exists.phpt
+END
+apc_method_is_expired.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_is_expired.phpt
+END
+xcache_method_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_timestamp.phpt
+END
+file_prop_name.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_prop_name.phpt
+END
+xcache_method_delete_update.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_delete_update.phpt
+END
+memcached_method_is_expired.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_is_expired.phpt
+END
+memcached_prop_id.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_prop_id.phpt
+END
+CacheMC-class_implements.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheMC-class_implements.phpt
+END
+file_method_response_manager_no_params.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_response_manager_no_params.phpt
+END
+core_prop_name.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/core_prop_name.phpt
+END
+CacheMC-object_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheMC-object_type.phpt
+END
+file_method_response_manager_reset.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_response_manager_reset.phpt
+END
+memcached_method_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_timestamp.phpt
+END
+memcached_method_delete_update.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_delete_update.phpt
+END
+xcache_method_timestamp_nocreate.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_timestamp_nocreate.phpt
+END
+file_method_delete.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_delete.phpt
+END
+memcached_method_read.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_read.phpt
+END
+file_method_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_timestamp.phpt
+END
+file_method_delete_update.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_delete_update.phpt
+END
+xcache_method_response_manager.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_response_manager.phpt
+END
+CacheFile-class_exists.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheFile-class_exists.phpt
+END
+apc_method_update.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_update.phpt
+END
+xcache_method_is_expired.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_is_expired.phpt
+END
+memcached_method_update.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_update.phpt
+END
+core_prop_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/core_prop_timestamp.phpt
+END
+file_method_reset_fail.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_reset_fail.phpt
+END
+CacheXCache-class_implements.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheXCache-class_implements.phpt
+END
+CacheCore-object_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheCore-object_type.phpt
+END
+file_method_timestamp_nocreate.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_timestamp_nocreate.phpt
+END
+CacheXCache-object_type.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheXCache-object_type.phpt
+END
+file_method_response_manager.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_response_manager.phpt
+END
+CacheAPC-class_exists.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheAPC-class_exists.phpt
+END
+memcached_prop_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_prop_timestamp.phpt
+END
+file_method_is_expired.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_is_expired.phpt
+END
+apc_prop_location.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_prop_location.phpt
+END
+test_request.txt
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/test_request.txt
+END
+xcache_method_update.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_update.phpt
+END
+memcached_prop_location.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_prop_location.phpt
+END
+apc_method_delete_false.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_delete_false.phpt
+END
+memcached_method_update_read.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_update_read.phpt
+END
+core_prop_id.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/core_prop_id.phpt
+END
+apc_method_reset.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_reset.phpt
+END
+AllTests.php
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/AllTests.php
+END
+CachePDO-class_exists.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CachePDO-class_exists.phpt
+END
+CacheCore-class_implements.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheCore-class_implements.phpt
+END
+memcached_method_response_manager.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_response_manager.phpt
+END
+apc_prop_id.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_prop_id.phpt
+END
+file_method_update.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_update.phpt
+END
+memcached_method_read2.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_read2.phpt
+END
+xcache_prop_location.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_prop_location.phpt
+END
+CacheMC-class_exists.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheMC-class_exists.phpt
+END
+apc_prop_timestamp.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_prop_timestamp.phpt
+END
+apc_method_create.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_create.phpt
+END
+xcache_method_delete_false.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_delete_false.phpt
+END
+memcached_method_create.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/memcached_method_create.phpt
+END
+file_method_create_fail.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/file_method_create_fail.phpt
+END
+xcache_method_reset.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/xcache_method_reset.phpt
+END
+apc_method_read.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_read.phpt
+END
+apc_method_update_read.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_method_update_read.phpt
+END
+apc_prop_expires.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_prop_expires.phpt
+END
+apc_prop_name.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/apc_prop_name.phpt
+END
+CacheFile-class_implements.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/AWS/!svn/ver/4/trunk/lib/cachecore/_tests/CacheFile-class_implements.phpt
+END

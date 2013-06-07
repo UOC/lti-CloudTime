@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/AWS/!svn/ver/4/trunk/lib/cachecore/_sql
+END
+sqlite3.sql
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/AWS/!svn/ver/4/trunk/lib/cachecore/_sql/sqlite3.sql
+END
+mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/AWS/!svn/ver/4/trunk/lib/cachecore/_sql/mysql.sql
+END
+pgsql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/AWS/!svn/ver/4/trunk/lib/cachecore/_sql/pgsql.sql
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/AWS/!svn/ver/4/trunk/lib/cachecore/_sql/README
+END

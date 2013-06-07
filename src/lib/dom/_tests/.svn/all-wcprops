@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/AWS/!svn/ver/4/trunk/lib/dom/_tests
+END
+simple.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/AWS/!svn/ver/4/trunk/lib/dom/_tests/simple.phpt
+END
+books.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/AWS/!svn/ver/4/trunk/lib/dom/_tests/books.phpt
+END
+same_root_nodes.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/AWS/!svn/ver/4/trunk/lib/dom/_tests/same_root_nodes.phpt
+END
+different_root_nodes.phpt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/AWS/!svn/ver/4/trunk/lib/dom/_tests/different_root_nodes.phpt
+END
