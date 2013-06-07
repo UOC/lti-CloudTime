@@ -28,15 +28,15 @@ The LTI CloudTime integration lets teachers to create, start, shutdown an see th
 	define('BD_USERNAME', 'your db username');
 	define('BD_PASSWORD', 'your db password');
 
-### Amazon Web Services Key. Found in the AWS Security Credentials. 
+* Amazon Web Services Key. Found in the AWS Security Credentials. 
 
 	define('AWS_KEY', '');
 
-### Amazon Web Services Secret Key. Found in the AWS Security Credentials
+* Amazon Web Services Secret Key. Found in the AWS Security Credentials
 
 	define('AWS_SECRET_KEY', '');
 
-### Amazon Account ID without dashes. Used for identification with Amazon EC2. Found in the AWS Security Credentials.
+* Amazon Account ID without dashes. Used for identification with Amazon EC2. Found in the AWS Security Credentials.
 
 	define('AWS_ACCOUNT_ID', '');
 
