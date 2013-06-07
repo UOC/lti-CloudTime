@@ -40,7 +40,8 @@ The LTI CloudTime integration lets teachers to create, start, shutdown an see th
 
 	define('AWS_ACCOUNT_ID', '');
 
-## Configure the LTI credentials found in file src/lib/IMSBasicLTI/configuration/authorizedConsumersKey.cfg
+## Configure the LTI credentials 
+File src/lib/IMSBasicLTI/configuration/authorizedConsumersKey.cfg
 p.e: in order to set as a consumer key "external", you have to put the following in the configuration file:
 
 	consumer_key.external.enabled=1 
