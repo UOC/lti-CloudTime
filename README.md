@@ -19,27 +19,29 @@ The LTI CloudTime integration lets teachers to create, start, shutdown an see th
 
 * Execute the SQL file install/CloudTime.sql
 
-* Configure the file src/config.inc.php
+## Configure the file src/config.inc.php
 
-** Database configuration
- define('BD_HOST', 'localhost');
- define('BD_NAME', 'your db name');
- define('BD_USERNAME', 'your db username');
- define('BD_PASSWORD', 'your db password');
-** Amazon Web Services Key. Found in the AWS Security Credentials. 
- define('AWS_KEY', '');
+* Database configuration
+	define('BD_HOST', 'localhost');
+	define('BD_NAME', 'your db name');
+	define('BD_USERNAME', 'your db username');
+	define('BD_PASSWORD', 'your db password');
+* Amazon Web Services Key. Found in the AWS Security Credentials. 
+	define('AWS_KEY', '');
 
-** 	Amazon Web Services Secret Key. Found in the AWS Security Credentials
- define('AWS_SECRET_KEY', '');
+* 	Amazon Web Services Secret Key. Found in the AWS Security Credentials
+	define('AWS_SECRET_KEY', '');
 
-** Amazon Account ID without dashes. Used for identification with Amazon EC2. Found in the AWS Security Credentials.
- define('AWS_ACCOUNT_ID', '');
+* Amazon Account ID without dashes. Used for identification with Amazon EC2. Found in the AWS Security Credentials.
+	define('AWS_ACCOUNT_ID', '');
 
 * Configure the LTI credentials found in file src/lib/IMSBasicLTI/configuration/authorizedConsumersKey.cfg
 p.e: in order to set as a consumer key "external", you have to put the following in the configuration file:
- consumer_key.external.enabled=1 
- consumer_key.external.secret=pwd_12345
+	consumer_key.external.enabled=1 
+	consumer_key.external.secret=pwd_12345
 
-* LTI Launch to index.php of application
+# LTI Launch to index.php of application
+	http://localhost/CloudTime/index.php
 
-* You can enable a cron to stop the instances automatically (current is setted a 8 hours but you can change it)
+# Cron
+You can enable a cron to stop the instances automatically (current is setted a 8 hours but you can change it)
