@@ -29,7 +29,7 @@
  * Project email: campusproject@uoc.edu
  *
  **/
-$language['no estas autoritzat'] = 'No es&acute;s autorizado';
+$language['no estas autoritzat'] = 'No est&aacute;s autorizado';
 $language['no tens instancies assignades'] = 'no tienes máquinas asignadas';
 $language['Ec2 instance'] = 'Ec2 instance';
 $language['Segur que vol canviar lestat a la instancia'] = 'Estàs seguro que deseas cambiar el estado de la máquina';
