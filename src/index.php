@@ -39,6 +39,7 @@ require_once('gestorBD.php');
 
 require_once('constants.php');
 require_once('utils.php');
+require_once('lang.php');
 /**
  * 
  * Checks if is a LTI call, and then do the SSO and create and join roles if it is necessary
@@ -94,7 +95,7 @@ function lti_init() {
 					if ($user_id) {
 						$user = $gestorBD->get_user_by_username($username);
 					} else {
-						show_error("register_user_error");
+						show_error(Language::get("register_user_error"));
 						$user=false;
 					}
 					
@@ -102,7 +103,7 @@ function lti_init() {
 					 
 			    	if (!$gestorBD->update_user($username, $name, $email, $image))
 			    	{
-			    		show_error("updated_user_error");
+			    		show_error(Language::get("updated_user_error"));
 			    		$user = false;
 			    	}
 			    	 
@@ -121,19 +122,19 @@ function lti_init() {
 					
 					if (!$course) {
 						if (!$gestorBD->register_course($course_key, $course_name, $region)) {
-							show_error('lti:errorregistercourse');
+							show_error(Language::get('lti:errorregistercourse'));
 						}
 						$course = $gestorBD->get_course_by_courseKey($course_key);
 					}
 					else {
 						if (!$gestorBD->update_course($course_key, $course_name, $region)) {
-							show_error('lti:errorupdatingcourse');
+							show_error(Language::get('lti:errorupdatingcourse'));
 						}
 					}
 					if ($course) {
 						$course_id= $course['id'];
 						if (!$gestorBD->join_course($course_id, $user_id, $is_instructor)) {
-							show_error('lti:errorjoincourse');
+							show_error(Language::get('lti:errorjoincourse'));
 						}
 					}
 			    }
@@ -159,7 +160,7 @@ function lti_init() {
 			    	header('Location: '.$url);
 			    }
 		    } else {
-		    	show_error('lti:errornotauthorized');
+		    	show_error(Language::get('lti:errornotauthorized'));
 		    }
 		}
     } catch (RegistrationException $r) {
@@ -182,7 +183,7 @@ function  is_lti_error_data($context){
 	if (!$context->getResourceKey() || strlen($context->getResourceKey())==0) {
 	//if (!isset($context->info['context_id']) || strlen($context->info['context_id'])==0) {
 		$error = true;
-		show_error("lti:resource_id_necessary");
+		show_error(Language::get("lti:resource_id_required"));
 	/*} elseif (!isset($context->info['roles']) || strlen($context->info['roles'])==0) {
 		$error = true;
 		show_error("lti:role_necessary");
