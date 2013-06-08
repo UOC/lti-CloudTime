@@ -42,7 +42,7 @@ define('BD_PASSWORD', '');
  * Constant: FILE_FOLDER
  * 	Folder to store file pems and distribute to students, the server should be able to write it but it will not have http acces
  */
-define('PEM_PROTECTED_FOLDER', '/Users/antonibertranbellido/uoc/Learning Apps/ec2');
+define('PEM_PROTECTED_FOLDER', '/path/to/folder/');
 
 /**
  * Constant: AWS_KEY

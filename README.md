@@ -28,6 +28,11 @@ The LTI CloudTime integration lets teachers to create, start, shutdown an see th
 	define('BD_USERNAME', 'your db username');
 	define('BD_PASSWORD', 'your db password');
 
+###### Folder to store file pems and distribute to students, the server should be able to write it but it will not have http acces
+
+	define('PEM_PROTECTED_FOLDER', '/path/to/folder/');
+
+
 ###### Amazon Web Services Key. Found in the AWS Security Credentials. 
 
 	define('AWS_KEY', '');
