@@ -39,6 +39,12 @@ define('BD_NAME', '');
 define('BD_USERNAME', '');
 define('BD_PASSWORD', '');
 /**
+ * Constant: FILE_FOLDER
+ * 	Folder to store file pems and distribute to students, the server should be able to write it but it will not have http acces
+ */
+define('PEM_PROTECTED_FOLDER', '/Users/antonibertranbellido/uoc/Learning Apps/ec2');
+
+/**
  * Constant: AWS_KEY
  * 	Amazon Web Services Key. Found in the AWS Security Credentials. You can also pass this value as the first parameter to a service constructor.
  */
