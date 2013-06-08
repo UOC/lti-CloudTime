@@ -28,7 +28,7 @@ The LTI CloudTime integration lets teachers to create, start, shutdown an see th
 	define('BD_USERNAME', 'your db username');
 	define('BD_PASSWORD', 'your db password');
 
-###### Folder to store file pems and distribute to students, the server should be able to write it but it will not have http acces
+###### Folder to store file pems and distribute to students, the server should be able to write it but it shouldn't have http acces
 
 	define('PEM_PROTECTED_FOLDER', '/path/to/folder/');
 
