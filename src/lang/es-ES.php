@@ -29,7 +29,7 @@
  * Project email: campusproject@uoc.edu
  *
  **/
-$language['no estas autoritzat'] = 'no estas autoritzado';
+$language['no estas autoritzat'] = 'No es&acute;s autorizado';
 $language['no tens instancies assignades'] = 'no tienes máquinas asignadas';
 $language['Ec2 instance'] = 'Ec2 instance';
 $language['Segur que vol canviar lestat a la instancia'] = 'Estàs seguro que deseas cambiar el estado de la máquina';
@@ -40,6 +40,7 @@ $language['instruccions_caps'] = 'A continuación mostramos las instrucciones pa
 $language['instruccions1'] = 'Lo primero que necesitas es tener la máquina encendida.';
 $language['instruccions2'] = 'Una vez esté encendidad podras consultar la IP (si todavía no está disponible actualiza la página).';
 $language['instruccions3'] = 'Entonces puedes abrir una sesión por SSH indicando el username <b>user</b> y el password que te ha haya dado el profesor. Para conectarte desde linux/mac abre el terminal y escribe:';
+$language['instruccions3_ec2-user'] = 'Entonces puedes abrir una sesión por SSH indicando el username <b>ec2-user</b> y la pareja de claves que te puedes descargar %s. Debes darle permisos 400 al fichero. Para conectarte desde linux/mac abre el terminal y escribe:';
 $language['instruccions4'] = 'Si lo haces con windows tendrás que usar una herramienta tipo Putty';
 $language['dadesactualsinstancia'] = 'El identificador de la máquina es <b>%s</b> estado actual es:';
 $language['start'] = 'Inicia Máquina';
@@ -124,3 +125,9 @@ $language['Instancies parades correctament'] = 'Instancias paradas correctamente
 $language['Instancies iniciades correctament'] = 'Instancies iniciades correctamente';
 $language['Instancia parada correctament'] = 'Instancia %s parada correctamente';
 $language['Instancia iniciada correctament'] = 'Instancia %s iniciada correctamente';
+$language['Error folder no exist or no writable'] = 'Error el directorio PEM no existe o no se puede escribir';
+$language['Error file can not write'] = 'Error fichero PEM no se puede escribir';
+$language['Error file can not open'] = 'Error no se puede abrir el fichero PEM';
+$language['Public Amis'] = 'Busca ESB-Backed 32 o 64 p&uacte;blicas en la p&acute;gina %s, tienes que seleccionar la de t&uacute; regi&oacute;n actual';
+$language['Pots descarregar key pair'] = 'Puedes descargarte la pareja de claves desde %s.';
+$language['aqui'] = 'aqu&iacute;';

@@ -38,14 +38,7 @@ if (!class_exists("bltiUocWrapper")) {
 require_once('gestorBD.php');
 
 require_once('constants.php');
-/**
- * 
- * Shows the message
- * @param unknown_type $msg
- */
-function show_error($msg) {
-	echo '<div class="error">'.$msg.'</div>';
-}
+require_once('utils.php');
 /**
  * 
  * Checks if is a LTI call, and then do the SSO and create and join roles if it is necessary
@@ -74,8 +67,8 @@ function lti_init() {
     // See if we get a context, do not set session, do not redirect
     $context = new bltiUocWrapper(false, false);
     if ( ! $context->valid ) {
-    	show_error($context->message);
-        return false;
+    	show_error("Signature is not a valid");
+        exit;
     }
     
     try {
@@ -209,7 +202,10 @@ function lti_get_course_name($context) {
 	if (!$resourceTitle) {
 		$resourceTitle = $context->getResourceKey();
 	}
-	$courseName = $context->getCourseTitle().' - '.$resourceTitle;
+	$courseName = $context->getCourseTitle();
+	$courseName .= strlen($courseName)==0?'':' - ';
+	$courseName .= $resourceTitle
+	;
 /*	$concat_resource_link_id = 0;
 	try {
 		//we have a configuration file on indicates which fields are mapping

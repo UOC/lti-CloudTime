@@ -187,9 +187,23 @@
                 {
                 	$result = true;
                 	if (!$this->ipAssignada($instanceId)) {
-                		$result = $this->consulta("UPDATE ec2_instance set ipAddress ="+$this->escapeString($ipAddress)+" where instanceId = ".$this->escapeString($instanceId), $this->conn);
+                		$result = $this->consulta("UPDATE ec2_instance set ipAddress =".$this->escapeString($ipAddress)." where instanceId = ".$this->escapeString($instanceId), $this->conn);
                 	}
 					return $result;           
+                }
+
+
+                /**
+                 * 
+                 * Si no tiene IP assignada assigna esta
+                 * @param unknown_type $id_course
+                 * @return boolean
+                 */
+                public function setHasKeyStored($id_course, $is_stored=1)
+                {
+                    $result = true;
+                    $result = $this->consulta("UPDATE course set has_key_stored =".$is_stored." where id = ".$this->escapeString($id_course), $this->conn);
+                    return $result;           
                 }
                 
                 /**

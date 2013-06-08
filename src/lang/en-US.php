@@ -29,7 +29,7 @@
  * Project email: campusproject@uoc.edu
  *
  **/
-$language['no estas autoritzat'] = 'not authorized';
+$language['no estas autoritzat'] = 'Not authorized';
 $language['no tens instancies assignades'] = 'you don\'t have assigned machines';
 $language['Ec2 instance'] = 'Ec2 instance';
 $language['Segur que vol canviar lestat a la instancia'] = 'Are you sure you want to change the state';
@@ -39,7 +39,8 @@ $language['myinstancesmanagement'] = 'My Machines';
 $language['instruccions_caps'] = 'Below are instructions for turning on and stopping';
 $language['instruccions1'] = 'The first thing you need is encendidad machine.';
 $language['instruccions2'] = 'Once you encendidad you could find the IP (if not already available refresh this page).';
-$language['instruccions3'] = 'Then you can log in via SSH username indicating the <b> user</b> and the password you have been given the teacher. To connect from linux/mac open a terminal and type:';
+$language['instruccions3'] = 'Then you can log in via SSH username indicating the <b>user</b> and the password you have been given the teacher. To connect from linux/mac open a terminal and type:';
+$language['instruccions3_ec2-user'] = 'Then you can log in via SSH username indicating the <b>ec2-user</b> and key pair that can download from %s.<br>You have to give 400 permission to file. To connect from linux/mac open a terminal and type:';
 $language['instruccions4'] = 'If you have windows then you have to use a tool such Putty';
 $language['dadesactualsinstancia'] = 'The identifier of the machine is <b>%s </b> current state is:';
 $language['start'] = 'Start Machine';
@@ -125,3 +126,9 @@ $language['Instancies parades correctament'] = 'Instances stopped successfully';
 $language['Instancies iniciades correctament'] = 'Instances started successfully';
 $language['Instancia parada correctament'] = 'Instance %s stopped successfully';
 $language['Instancia iniciada correctament'] = 'Instance %s started successfully';
+$language['Error folder no exist or no writable'] = 'Error PEM folder doesn\'t exist or is not writable';
+$language['Error file can not write'] = 'Error PEM file can not write';
+$language['Error file can not open'] = 'Error PEM file can not open';
+$language['Public Amis'] = 'Search public ESB-Backed 32 or 64 in the web page %s, you have to select by current region';
+$language['Pots descarregar key pair'] = 'You can download the key pair from %s.';
+$language['aqui'] = 'here';

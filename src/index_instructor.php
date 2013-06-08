@@ -40,7 +40,6 @@
 	require_once './sdk.class.php';
 	require_once 'constants.php';
 	require_once 'utils.php';
-	//Incluim la BD
 	require_once('gestorBD.php');
 	require_once('lang.php');
 
@@ -71,7 +70,7 @@ $my_amis = array();
 
 session_start();
 if (!$_SESSION[IS_INSTRUCTOR]==1) {
-	die("no estas autoritzat");
+	show_error(Language::get('no estas autoritzat'));
 }
 $container = DOMAIN_PREFIX.$_SESSION[CONTEXT_ID]; //343407
 $s = $_SESSION[SESSION_ID_FIELD];
@@ -256,64 +255,98 @@ elseif ($action==LAUNCH_INSTANCES) {
 
 		if ($imageId && $instance_type) {
 			if ($number_of_instances>0) {
-				
-				$response = $ec2->run_instances($imageId, $number_of_instances, $number_of_instances,
-				array(
-						'KeyName' => $course_name,
-						'InstanceType' => $instance_type,
-				));
-			// Temporarily cache the InstanceID
-			if ($response->isOK() && isset($response->body->instancesSet->item->instanceId))
-			{
-				$result = new stdClass();
-				$result->instance_id = false;
-				$result->public_ip = false;
-				$result->associated = false;
-			
-				$result->instances = $response->body->instancesSet;
-				if ($result->instances->item) {
-					foreach ($result->instances->item as $item) {
-					$current_instanceid = $item->instanceId;
-					//2. Assoociate tag
-					$response = $ec2->create_tags($current_instanceid, array(
-							array('Key' => 'Name', 'Value' => Language::get('Maquina').' '.$current_instanceid),
-					));
+				$response = $ec2->describe_key_pairs(
+									array(
+										'KeyName' => $course_name
+									));
+				$is_ok = false;
+				if (!$response->isOK()) {
+
+					if ($response->body->Errors && $response->body->Errors[0]->Error->Code=='InvalidKeyPair.NotFound') {
+						//try to create it
+						if (defined('PEM_PROTECTED_FOLDER') && is_writable(PEM_PROTECTED_FOLDER)) {
+							$response = $ec2->create_key_pair($course_name);
+							$file_name = PEM_PROTECTED_FOLDER.DIRECTORY_SEPARATOR.sanitizeFilename($course_name).'.pem';
 					
-						if ($response->isOK()) {
-							$msg_ok = Language::getTag('Maquina creada correctament', $current_instanceid); 
+							if ($response->body && $response->body->keyMaterial) {
+								(string) $private_key = $response->body->keyMaterial;
+							    if (!$handle = fopen($file_name, 'a')) {
+							    	$response = Language::get('Error file can not open');
+							    }
+
+							    // Write content
+							    if (fwrite($handle, $private_key) === FALSE) {
+							        $response = Language::get('Error file can not write');
+							    } else {
+							    	$is_ok = true;
+							    }
+							    
+							    fclose($handle);
+							    if ($gestorBD->setHasKeyStored($course_id, 1)) {
+							    	$obj_course['has_key_stored'] = 1;
+							    }
+
+							}
+						} else {
+							$response = Language::get('Error folder no exist or no writable');
 						}
-						 else {
-						 	$msg_error =  Language::get('Error creant maquines resposta sense instancia'). printEc2Error($response);
-						}
-					}
+					} 
 				
 				} else {
-					$msg_error = Language::get('Error obtenint resposta de crear maquines'). printEc2Error($response);
+					$is_ok = true;
 				}
-			} else {
-				$msg_error =  Language::get('Error creant maquines'). printEc2Error($response);
-			}
+				if ($is_ok) {
+						$response = $ec2->run_instances($imageId, $number_of_instances, $number_of_instances,
+						array(
+								'KeyName' => $course_name,
+								'InstanceType' => $instance_type,
+						));
+					// Temporarily cache the InstanceID
+					if ($response->isOK() && isset($response->body->instancesSet->item->instanceId))
+					{
+						$result = new stdClass();
+						$result->instance_id = false;
+						$result->public_ip = false;
+						$result->associated = false;
+					
+						$result->instances = $response->body->instancesSet;
+						if ($result->instances->item) {
+							foreach ($result->instances->item as $item) {
+							$current_instanceid = $item->instanceId;
+							//2. Assoociate tag
+							$response = $ec2->create_tags($current_instanceid, array(
+									array('Key' => 'Name', 'Value' => Language::get('Maquina').' '.$current_instanceid),
+							));
+							
+								if ($response->isOK()) {
+									$msg_ok = Language::getTag('Maquina creada correctament', $current_instanceid); 
+									if ((int)$obj_course['has_key_stored']==1) {
+										$msg_ok .= '<br>'.Language::getTag('Pots descarregar key pair', '<a href="get_file.php" target="_blank">'.Language::get('aqui').'</a>'); 
+									}
+								}
+								 else {
+								 	$msg_error =  Language::get('Error creant maquines resposta sense instancia'). printEc2Error($response);
+								}
+							}
+						
+						} else {
+							$msg_error = Language::get('Error obtenint resposta de crear maquines'). printEc2Error($response);
+						}
+					} else {
+						$msg_error =  Language::get('Error creant maquines'). printEc2Error($response);
+					}
+				} else {
+						$msg_error =  Language::get('Error creant maquines'). printEc2Error($response);
+					} 
 		} else {
 			$msg_error = Language::get('selecciona alguna instancia');
 		}
 	}
 } 
+$title = Language::get('Ec2CourseInterface').' '.$course_title;
+include('header.php');
 ?>
-<html>
-<head>
-<meta charset="utf-8">
-<title><?php echo Language::get('Ec2CourseInterface').' '.$course_title?></title>
-<link rel="shortcut icon" href="favicon.ico">
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-<link rel="shortcut icon" href="images/favicon.ico">
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<link href="css/bootstrap-editable.css" rel="stylesheet">
-<link href="css/index.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-<script src="js/bootstrap-editable.min.js"></script>
-<script type="text/javascript">
+<SCRIPT TYPE="text/javascript">
 function canviaEstat(estat_actual, id) {
 	if (confirm("<?php echo Language::get('Segur que vol canviar lestat a la instancia')?> "+id+"?")) {
 		document.f.id.value = id;
@@ -382,33 +415,8 @@ function assignStudents(form, assign) {
 		}
 	form.submit();
 }
-
 </script>
-</head>
- <body>
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<div class="nav-collapse collapse">
-						  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					    <span class="icon-bar"></span>
-					    <span class="icon-bar"></span>
-					    <span class="icon-bar"></span>
-					  </a>
-					  <a class="brand" href="#"> <img src="images/logo.png"><?php echo $course_title?></a>
-					    <?php include('logos.php');?>
-
-					<!--ul class="nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
-					</ul-->
-				</div><!--/.nav-collapse -->
-			</div>
-		</div>
-
-	</div><!-- /navbar -->
-		
+<?php include('end_header_navbar.php');?>		
 		<div class="container">
 		    		<div class="row">
 		    			<?php if ($msg_ok) {
@@ -464,7 +472,7 @@ function assignStudents(form, assign) {
 											  <div class="modal-body">
 												<p><?php echo Language::get('Ami Id Explination')?></p>
 												<p><span class="label"><?php echo Language::get('Ami Id')?></span> <input type="text" name="<?php echo FIELD_AMI_BY_ID?>" id="<?php echo FIELD_AMI_BY_ID?>"></p>
-												
+												<p><?php echo Language::getTag('Public Amis', '<a href="http://aws.amazon.com/amazon-linux-ami" target="_blank">http://aws.amazon.com/amazon-linux-ami</a>');?></p>
 											  </div>
 											  <div class="modal-footer">
 											    <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo Language::get('Close')?></button>
@@ -481,29 +489,8 @@ function assignStudents(form, assign) {
 								</div><!-- /.tab-content -->
 							</div><!-- /.tabbable -->
 						</div><!-- /.row -->
-
-      <hr>
-
-      <footer>
-         <?php include('logos_footer.php');?>
-      </footer>
-
-
-    </div> 
-  <!-- Le javascript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="http://code.jquery.com/jquery.min.js"></script>
-  <script src="js/bootstrap/bootstrap.min.js"></script>
-    
-<script>
-	$('#myTab a').click(function (e) {
-	  e.preventDefault();
-	  $(this).tab('show');
-	});
-</script>
-</body>
-</html>
-<?php 
+<?php
+$show_tabs=true;
+include('footer.php');
 $gestorBD->desconectar();
 ?>

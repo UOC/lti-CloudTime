@@ -41,6 +41,17 @@ foreach ($current_amis as $key => $item) {
 $options['ImageId'] = $my_amis;
 $response = $ec2->describe_images($options);
 $course_id = $_SESSION[COURSE_ID];
+/*if (count($my_amis)==0 && isset($response->body->imagesSet ) && count($response->body->imagesSet->item)==0) {
+	$response = $ec2->describe_images(
+		array(
+		    "Filters" => array(
+		        array("Name" => "name", "Values" => array(""))
+		    	)
+			)
+		);
+
+	echo "<pre>";print_r($response); echo "</pre>";
+}*/
 if (isset($response->body->imagesSet )) { 
 	foreach ($response->body->imagesSet->item as $item)
 	{

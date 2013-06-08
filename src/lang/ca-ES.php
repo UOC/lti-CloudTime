@@ -29,7 +29,7 @@
  * Project email: campusproject@uoc.edu
  *
  **/
-$language['no estas autoritzat'] = 'no estas autoritzat';
+$language['no estas autoritzat'] = 'No estas autoritzat';
 $language['no tens instancies assignades'] = 'no tens màquines assignades';
 $language['Ec2 instance'] = 'Ec2 instance';
 $language['Segur que vol canviar lestat a la instancia'] = 'Segur que vol canviar l\'estat a la màquina';
@@ -39,7 +39,8 @@ $language['myinstancesmanagement'] = 'Gestió de les meves màquines';
 $language['instruccions_caps'] = 'A continuació mostrem les instruccions per tal d\'encendre i parar la màquina';
 $language['instruccions1'] = 'El primer que necessites és tenir la màquina encesa.';
 $language['instruccions2'] = 'Una vegada estigui encesa podras consultar la IP (si encara no esta disponible refresca la pàgina).';
-$language['instruccions3'] = 'Aleshores pots obrir una sessió per SSH indicant l\'username <b>user</b> i el password que t\'ha indicat el professor. Per connectar-te des de linux/mac obre el terminal i escriu:';
+$language['instruccions3'] = 'Aleshores pots obrir una sessi&oacute; per SSH indicant l\'username <b>user</b> i el password que t\'ha indicat el professor. Per connectar-te des de linux/mac obre el terminal i escriu:';
+$language['instruccions3_ec2-user'] = 'Aleshores pots obrir una sessi&oacute; per SSH indicant l\'username <b>ec2-user</b> i la parella de claus que et pots descarregar %s. Has de donar permissos 400 al fitxer. Per connectar-te des de linux/mac obre el terminal i escriu:';
 $language['instruccions4'] = 'Si ho fas amb windows hauras d\'usar una eina tipus Putty';
 $language['dadesactualsinstancia'] = 'L\'identificador de la màquina és <b>%s</b> l\'estat actual és:';
 $language['start'] = 'Inicia Màquina';
@@ -124,3 +125,9 @@ $language['Instancies parades correctament'] = 'Inst&agrave;ncies parades correc
 $language['Instancies iniciades correctament'] = 'Inst&agrave;ncies iniciades correctament';
 $language['Instancia parada correctament'] = 'Inst&agrave;ncia %s parada correctament';
 $language['Instancia iniciada correctament'] = 'Inst&agrave;ncia %s iniciada correctament';
+$language['Error folder no exist or no writable'] = 'Error el directori PEM no existeix o no es pot escriure';
+$language['Error file can not write'] = 'Error fitxer PEM no es pot escriure';
+$language['Error file can not open'] = 'Error no es pot obrir el fitxer PEM';
+$language['Public Amis'] = 'Cerca ESB-Backed 32 o 64 p&uacte;bliques en la p&agrave;gina %s, has de seleccionar-la de tla regi&oacute; actual';
+$language['Pots descarregar key pair'] = 'Pots descarregar la parella de claus des de %s.';
+$language['aqui'] = 'aqu&iacute;';

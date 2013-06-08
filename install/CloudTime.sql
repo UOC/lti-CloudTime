@@ -4,6 +4,7 @@ CREATE TABLE `course` (
   `courseKey` varchar(70) DEFAULT NULL,
   `title` varchar(150) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
+  `has_key_stored` decimal(1,0) DEFAULT 0,
   `amazon_region` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `courseKey` (`courseKey`)
