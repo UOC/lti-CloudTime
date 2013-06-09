@@ -53,7 +53,7 @@ $task	 	= isset($_POST['task'])?$_POST['task']:'';
 $extra	 	= isset($_POST['extra'])?$_POST['extra']:'';
 $action     = isset($_POST['action'])?$_POST['action']:'';
 $busca     	= isset($_POST['boto'])?$_POST['boto']!='':'';
-if ($_POST['boto'] == STARTSELECT || $_POST['boto'] == STOPSELECT ) {
+if ($_POST['boto'] == STARTSELECT || $_POST['boto'] == STOPSELECT || $_POST['boto'] == RELOAD ) {
 	$action = $_POST['boto'];
 }
 $delete = isset($_POST['delete'])?$_POST['delete']:false;
@@ -432,7 +432,7 @@ function assignStudents(form, assign) {
 								<div class="tab-content">
 									<div class="tab-pane <?php echo $active_tab_1 ?'active':''?>" id="tabs1-pane1">
 										<form action="" class="formulari" method="post" name="f">
-											<button type="submit" name="boto" value="<?php echo Language::get('reload')?>" class="boto">
+											<button type="submit" name="boto" value="<?php echo RELOAD?>" class="boto">
 											    <i class="icon-refresh"></i> <?php echo Language::get('reload')?>
 											</button>
 											<button type="submit" name="boto" value="<?php echo STOPSELECT?>"  class="boto">
@@ -458,7 +458,7 @@ function assignStudents(form, assign) {
 									</div>
 									<div class="tab-pane <?php echo !$active_tab_1 ?'active':''?>" id="tabs1-pane2">
 										 <form action="" class="formulari" method="post" name="f_image">
-											<button type="submit" name="boto" value="<?php echo Language::get('reload')?>" class="boto">
+											<button type="submit" name="boto" value="<?php echo RELOAD?>" class="boto">
 											    <i class="icon-refresh"></i> <?php echo Language::get('reload')?>
 											</button>
 											<button href="#modalassociateinstance"  class="boto" data-toggle="modal">
