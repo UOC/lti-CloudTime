@@ -36,6 +36,7 @@ define('STATERUNNING','running');
 define('STATESTOPING','stopping');
 define('STATETERMINATED','terminated');
 define('STATEPENDING','pending');
+define('RELOAD','reload');
 define ('USERNAME', 'custom_username');
 define ('CONTEXT_ID', 'context_id');
 define ('INSTANCE_ID', 'resource_link_id');
