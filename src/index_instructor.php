@@ -483,6 +483,7 @@ function assignStudents(form, assign) {
 											<input type="hidden" name="id" value="" />
 											<input type="hidden" name="extra" value="" />	
 										</form>	
+										<br />
 											<?php include_once('myamis.php');?>
 										
 									</div>
