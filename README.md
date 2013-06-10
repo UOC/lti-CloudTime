@@ -1,4 +1,4 @@
-lti-cloudTime
+lti-CloudTime
 =============
 
 CloudTime (a word mixed between cloud and runtime) lets you easily set up and distribute Amazon EC2 virtual machines. It is a simple and very customized view of an associated Amazon AWS account. It is specially designed for teachers that want to offer cloud infrastructure to their students (i.e. computer programming, engineering and other subjects that need computing).
