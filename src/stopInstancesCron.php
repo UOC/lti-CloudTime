@@ -127,7 +127,6 @@
 						$mail->AddBCC($teacher['email'], $teacher['fullname']);
 					}
 				}
-						$mail->AddBCC('abertranb@uoc.edu', 'Antoni');
 								
 				$mail->Subject    = $titulo;
 				
