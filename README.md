@@ -66,4 +66,5 @@ Find updated values from [here](http://docs.aws.amazon.com/general/latest/gr/ran
 You can enable a cron to stop the instances automatically (current is setted a 8 hours but you can change it). 
 
 You have to enable a cron:
+
 	*/5 * * * * wget -O /dev/null http://localhost/lti-CloudTime/stopInstancesCron.php
