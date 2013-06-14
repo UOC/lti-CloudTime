@@ -1,6 +1,0 @@
-#You can define a rediraction to other path
-#IncludeBefore=/home/campus/configHome/blti/authorizedConsumersKey.cfg
-
-#Definition of consumer key "sample"
-consumer_key.uoc.edu.enabled=1
-consumer_key.uoc.edu.secret=campus_25_consumer

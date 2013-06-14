@@ -1,3 +1,0 @@
-#This is a configuration to be readed by providers to authorize the consumer key and gets the secret
-#consumer_key."name_consumer".enabled=1
-#consumer_key."name_consumer".secret=secret
