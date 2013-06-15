@@ -423,7 +423,10 @@ function assignStudents(form, assign) {
 		    				echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$msg_ok.'</div>';
 		    			}if ($msg_error) {
 		    				echo '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$msg_error.'</div>';
-		    			} ?>
+		    			} 
+		    			if ((int)$obj_course['has_key_stored']==1) {
+							echo '<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>'.Language::getTag('Pots descarregar key pair', '<a href="get_file.php" target="_blank">'.Language::get('aqui').'</a>').'</div>'; 
+						}?>
 							<div class="tabbable span12">
 								<ul class="nav nav-tabs">
 									<li <?php echo $active_tab_1 ?'class="active"':''?>><a href="#tabs1-pane1" data-toggle="tab"><?php echo Language::get('Ec2CourseInterfaceInstances')?></a></li>
