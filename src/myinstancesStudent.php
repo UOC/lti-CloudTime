@@ -93,9 +93,7 @@ $i=0;
 				<?php } ?>
 		<?php 
 	} ?>
-				<?php if ($esta_stoping || $esta_pending) {?>
 				<button class="boto" onclick="Javascript:refresca();"><i class="icon-refresh"></i> <?php echo Language::get('refresh'); ?></button>
-				<?php } ?>	
 				<button onclick="Javascript:canviaEstat('<?php echo $item->instanceState->name?>', '<?php echo $instanceId ?>');" value="start_selected" class="boto">
 											    <i class="icon-<?php echo $esta_encesa?'stop':'play'?>"></i> <?php echo Language::get($esta_encesa?'stop':'start')?></button>				
 	<div class="clear"></div>
