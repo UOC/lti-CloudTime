@@ -61,7 +61,7 @@ if (isset($response->body->imagesSet )) {
 		$description = (string) $item->description;
 		$imageLocation = (string) $item->imageLocation;
 		$imageState = (string) $item->imageState;
-		$imageOwnerId = (string) $item->imageOwnerId;
+		$imageOwnerId = (string) isset($item->imageOwnerId)?$item->imageOwnerId:'';
 		$isPublic = ((string) $item->isPublic)=='true';
 		$architecture = (string) $item->architecture;
 		$imageType = (string) $item->imageType;
@@ -119,7 +119,7 @@ $current_amis = $gestorBD->getAmisByCourseId($course_id);
 			$description =  $item['description'];
 			//$imageLocation = (string) $item['imageLocation'];
 			$imageState = $item['imageState'];
-			$imageOwnerId = $item['imageOwnerId'];
+			$imageOwnerId = isset($item['imageOwnerId'])?$item['imageOwnerId']:'';
 			$isPublic = $item['isPublic'];
 			$architecture = $item['architecture'];
 			$imageType = $item['imageType'];

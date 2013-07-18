@@ -138,3 +138,5 @@ $language['Error file can not open'] = 'Error PEM file can not open';
 $language['Public Amis'] = 'Search public ESB-Backed 32 or 64 in the web page %s, you have to select by current region';
 $language['Pots descarregar key pair'] = 'You can download the key pair from %s.';
 $language['aqui'] = 'here';
+$language['Missing parameters'] = 'Missing parameters';
+$language['Change name'] = 'Change name';

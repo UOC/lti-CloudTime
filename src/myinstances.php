@@ -116,6 +116,7 @@ $response = $ec2->describe_instances();
 				if ($item->keyName == $course_name && $item->instanceState->name!=STATETERMINATED) { //Nomes mostrem les del grup de multimedia
 					$current_ip = $item->ipAddress.'';
 					$instanceId = $item->instanceId.'';
+					$course_instances[] = $instanceId;	
 					//abertranb 20130102 - Added the launch like this
 					$imageId	= $item->imageId;
 					// ******* END
@@ -134,13 +135,14 @@ $response = $ec2->describe_instances();
 					$item->ipAddress, $item->dnsName, $item->privateDnsName, $item->launchTime, $item->instanceType, $item->kernel,
 					$item->architecture, $item->monitoring->state, getDeviceMapping($item->blockDeviceMapping->item), $_SESSION[CUSTOM_AWS_REGION]);
 					$students_selected = $gestorBD->getUserPerInstancia($instanceId, $course_id, true);
-					if (!in_array_value($item->imageId.'', $my_amis))
+					if (!in_array_value($item->imageId.'', $my_amis)) {
 						$my_amis[] = $item->imageId.'';
+					}
 				?>
 				<tr<?php echo $i%2==1?' class="odd"':''?>>
 					<td><input type="checkbox" name="id[]" value="<?php echo $instanceId ?>" /></td>
 					<td><?php echo $instanceId?></td>
-					<td><span id="name_instance" data-pk="1" data-toggle="#pencil" data-original-title="Enter note" tabindex="-1"><?php echo $item->tagSet->item[0]->value?></span><a href="#" id="pencil" style="float: right"><i class="icon-pencil"></i></a></td>
+					<td><span id="<?php echo 'instance_name_'.$instanceId?>" data-type="text" data-toggle="manual" data-pk="<?php echo $instanceId?>" data-placeholder="Required" data-original-title="<?php echo Language::get('Change name');?>" ><?php echo $item->tagSet->item[0]->value?></span><a href="#" id="<?php echo 'instance_pencil_'.$instanceId?>"><i class="icon-pencil"></i></a></td>
 					<td><?php echo $item->imageId?></td>
 					<td><a href="#" class="<?php if ($item->instanceState->name==STATERUNNING){?>green<?php }else{?>red<?php }?>" title="<?php if ($item->instanceState->name==STATERUNNING){ echo Language::get('stop'); }else{ echo Language::get('start'); }?> <?php echo $instanceId?>" onclick="Javascript:canviaEstat('<?php echo $item->instanceState->name?>', '<?php echo $instanceId ?>')"><?php echo $item->instanceState->name;?></a> </td>
 					<td><?php echo $current_ip?></td>
@@ -152,12 +154,14 @@ $response = $ec2->describe_instances();
 					<td><?php 
 						$user_pos = 0;
 						$user_str = '';
-						foreach ($students_selected as $student_key => $student) {
-							if ($user_pos>0) {
-								$user_str .= ', ';
+						if ($students_selected && is_array($students_selected) && count($students_selected)>0) {
+							foreach ($students_selected as $student_key => $student) {
+								if ($user_pos>0) {
+									$user_str .= ', ';
+								}
+								$user_str.= $student['fullname'];
+								$user_pos++;
 							}
-							$user_str.= $student['fullname'];
-							$user_pos++;
 						}
 						echo $user_str;
 						?>
@@ -196,10 +200,12 @@ $response = $ec2->describe_instances();
 				 <td>
 			  		<p><span class="label"><?php echo Language::get('Usuari assignat')?>:</p>
 					<p><select name="<?php echo UN_NAME_OPTION.$instanceId; ?>[]" id="<?php echo UN_NAME_OPTION.$instanceId; ?>" size="3" multiple="multiple" class="boto">
-						<?php foreach ($students as $student_key => $student) {
-							if (!isset($students_selected[$student_key])){?>
-								<option value="<?php echo $student_key;?>"><?php echo $student['fullname']?></option>
-							<?php }
+						<?php if (isset($students) && is_array($students) ) {
+								foreach ($students as $student_key => $student) {
+									if (!isset($students_selected[$student_key])){?>
+									<option value="<?php echo $student_key;?>"><?php echo $student['fullname']?></option>
+									<?php }
+								}
 						}?>
 						</select>
 					</p>
@@ -212,9 +218,11 @@ $response = $ec2->describe_instances();
 				 <td>
 					<p><span class="label"><?php echo Language::get('Usuari assignat')?>:</p>
 					<p><select name="<?php echo NAME_OPTION.$instanceId; ?>[]" id="<?php echo NAME_OPTION.$instanceId; ?>" size="3" multiple="multiple" class="boto">
-						<?php foreach ($students_selected as $student_key => $student) {?>
-						<option value="<?php echo $student_key;?>"><?php echo $student['fullname']?></option>
-						<?php }?>
+						<?php if (isset($students_selected) && is_array($students_selected) ) {
+								foreach ($students_selected as $student_key => $student) {?>
+									<option value="<?php echo $student_key;?>"><?php echo $student['fullname']?></option>
+						<?php 	}
+							}?>
 						</select>
 					</p>
 				 </td>

@@ -45,7 +45,8 @@
 
 	$gestorBD = new GestorBD();
 	
-
+$course_instances = array();
+		
 $operation 	= isset($_POST['operation'])?$_POST['operation']:MYINSTANCES;
 $id			= isset($_POST['id'])?$_POST['id']:'';
 $instances	= isset($_POST['instances'])?$_POST['instances']:'';
@@ -53,7 +54,7 @@ $task	 	= isset($_POST['task'])?$_POST['task']:'';
 $extra	 	= isset($_POST['extra'])?$_POST['extra']:'';
 $action     = isset($_POST['action'])?$_POST['action']:'';
 $busca     	= isset($_POST['boto'])?$_POST['boto']!='':'';
-if ($_POST['boto'] == STARTSELECT || $_POST['boto'] == STOPSELECT || $_POST['boto'] == RELOAD ) {
+if (isset($_POST['boto']) && ($_POST['boto'] == STARTSELECT || $_POST['boto'] == STOPSELECT || $_POST['boto'] == RELOAD )) {
 	$action = $_POST['boto'];
 }
 $delete = isset($_POST['delete'])?$_POST['delete']:false;
@@ -68,7 +69,6 @@ $launch_as_image = (isset($_POST['launch_as_image']) && ($launch_as_new_image ||
 $create_instanceId = isset($_POST['create_instanceId'])?$_POST['create_instanceId']:false;
 $my_amis = array();
 
-session_start();
 if (!$_SESSION[IS_INSTRUCTOR]==1) {
 	show_error(Language::get('no estas autoritzat'));
 }
@@ -496,5 +496,36 @@ function assignStudents(form, assign) {
 <?php
 $show_tabs=true;
 include('footer.php');
-$gestorBD->desconectar();
 ?>
+<script TYPE="text/javascript">
+
+$(function(){
+  
+   //defaults
+   $.fn.editable.defaults.url = 'change_name.php'; 
+
+<?php 
+foreach ($course_instances as $instance_id){ 
+	echo '$("#instance_name_'.$instance_id.'").editable();
+		 $("#instance_pencil_'.$instance_id.'").click(function(e) {
+	        e.stopPropagation();
+	        e.preventDefault();
+	        $("#instance_name_'.$instance_id.'").editable("toggle");
+   		}); ';
+}
+/*foreach ($current_amis as $item)
+{
+	// Stringify the value
+	$imageId =  $item['imageId'];
+	echo '$("#ami_name_'.$imageId.'").editable();
+		 $("#ami_pencil_'.$imageId.'").click(function(e) {
+	        e.stopPropagation();
+	        e.preventDefault();
+	        $("#ami_name_'.$imageId.'").editable("toggle");
+   		}); ';
+}*/
+ ?>
+});
+</script>
+<?php
+$gestorBD->desconectar();

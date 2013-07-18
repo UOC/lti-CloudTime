@@ -137,3 +137,5 @@ $language['Error file can not open'] = 'Error no es pot obrir el fitxer PEM';
 $language['Public Amis'] = 'Cerca ESB-Backed 32 o 64 p&uacte;bliques en la p&agrave;gina %s, has de seleccionar-la de tla regi&oacute; actual';
 $language['Pots descarregar key pair'] = 'Pots descarregar la parella de claus des de %s.';
 $language['aqui'] = 'aqu&iacute;';
+$language['Missing parameters'] = 'Falten par&agrave;metres';
+$language['Change name'] = 'Canviar nom';

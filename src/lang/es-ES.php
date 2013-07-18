@@ -137,3 +137,5 @@ $language['Error file can not open'] = 'Error no se puede abrir el fichero PEM';
 $language['Public Amis'] = 'Busca ESB-Backed 32 o 64 p&uacte;blicas en la p&acute;gina %s, tienes que seleccionar la de t&uacute; regi&oacute;n actual';
 $language['Pots descarregar key pair'] = 'Puedes descargarte la pareja de claves desde %s.';
 $language['aqui'] = 'aqu&iacute;';
+$language['Missing parameters'] = 'Faltan par&aacute;metros';
+$language['Change name'] = 'Cambiar nombre';
