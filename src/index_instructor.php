@@ -179,7 +179,8 @@ elseif ($action==DELETE_IMAGE) {
 	}
 }
 elseif ($action==CREATE_IMAGE_FROM_INSTANCE) {
-	$name = str_replace(':','',$course_name).'_'.$create_instanceId.'_'.time();
+	$name =isset($_POST['new_image_name'])?$_POST['new_image_name']:$course_name.'_'.$create_instanceId.'_'.time();
+	$name = str_replace(':','',$name);
 	$response=$ec2->create_image($create_instanceId, $name);
 	if ($response->isOK() && isset($response->body))
 	{
@@ -193,15 +194,13 @@ elseif ($action==CREATE_IMAGE_FROM_INSTANCE) {
 			else {
 				$msg_error = Language::getTag('AssociateAMIError',$imageId); 
 			}
-
-	
 		}
 		else {
 			$msg_error = Language::getTag('AssociateAMIError',$imageId); 
 		}
 	}
 	else {
-		$msg_error = Language::getTag('ErrorCreatingImage',$create_instanceId); 
+		$msg_error = Language::getTag('ErrorCreatingImageFromInstance',$create_instanceId).printEc2Error($response);
 	}
 }
 elseif (isset($_POST[FIELD_AMI_BY_ID]) && ($action==ACTION_AMI_MNGT) && !$launch_as_image) {
@@ -348,12 +347,14 @@ include('header.php');
 ?>
 <SCRIPT TYPE="text/javascript">
 function canviaEstat(estat_actual, id) {
-	if (confirm("<?php echo Language::get('Segur que vol canviar lestat a la instancia')?> "+id+"?")) {
-		document.f.id.value = id;
-		document.f.extra.value = estat_actual;
-		document.f.task.value = '<?php echo CHANGESTATE;?>';
-		document.f.submit();
-	}
+	bootbox.confirm("<?php echo Language::get('Segur que vol canviar lestat a la instancia')?> "+id+"?", function(result) {
+        if (result) {
+			document.f.id.value = id;
+			document.f.extra.value = estat_actual;
+			document.f.task.value = '<?php echo CHANGESTATE;?>';
+			document.f.submit();
+		}
+	});
 }
 function aplicarCheckedTot(checked){ 
 	   for (i=0;i<document.f.elements.length;i++) { 
@@ -363,31 +364,38 @@ function aplicarCheckedTot(checked){
 	} 
 function deleteInstance(form) {
 	var id = form.delete.value;	
-	if (confirm("<?php echo Language::get('Segur que vol eliminar la instancia')?> "+id+"?")) {
-		form.action.value="<?php echo DELETE_INSTANCE;?>";
-		form.submit();
-	}
+	bootbox.confirm("<?php echo Language::get('Segur que vol eliminar la instancia')?> "+id+"?", function(result) {
+        if (result) {
+			form.action.value="<?php echo DELETE_INSTANCE;?>";
+			form.submit();
+		}
+	});
 }
 function deleteImage(form) {
 	var id = form.delete_image.value;	
-	if (confirm("<?php echo Language::get('Segur que vol eliminar la imatge')?> "+id+"?")) {
-		form.action.value="<?php echo DELETE_IMAGE;?>";
-		form.submit();
-	}
+	bootbox.confirm("<?php echo Language::get('Segur que vol eliminar la imatge')?> "+id+"?", function(result) {
+        if (result) {	
+			form.action.value="<?php echo DELETE_IMAGE;?>";
+			form.submit();
+		}
+	});
 }
 function createImageFromInstance(form) {
 	var id = form.imageId.value;	
-	//if (confirm("<?php echo Language::get('Segur que vol eliminar la instancia')?> "+id+"?")) {
-		form.action.value="<?php echo CREATE_IMAGE_FROM_INSTANCE;?>";
-		form.submit();
-	//}
+	bootbox.prompt("<?php echo Language::get('Image name');?>", function(result) {
+		if (result === null) {
+			bootbox.alert("<?php echo Language::get('Indicate a name') ?>");
+		} else {
+			$('#new_image_name').val(result);
+			form.action.value="<?php echo CREATE_IMAGE_FROM_INSTANCE;?>";
+			form.submit();
+		}
+	}); 
 }
 function createInstanceFromImage(form) {
 	var id = form.imageId.value;	
-	//if (confirm("<?php echo Language::get('Segur que vol eliminar la instancia')?> "+id+"?")) {
-		form.action.value="<?php echo LAUNCH_INSTANCES;?>";
-		form.submit();
-	//}
+	form.action.value="<?php echo LAUNCH_INSTANCES;?>";
+	form.submit();
 }
 
 function assignStudents(form, assign) {

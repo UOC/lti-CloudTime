@@ -241,6 +241,7 @@ $response = $ec2->describe_instances();
 	<input type="hidden" name="create_instanceId" value="<?php echo $instanceId; ?>" />
 	<input type="hidden" name="imageId" value="<?php echo $imageId?>" />
 	<input type="hidden" name="action" value="" />
+	<input type="hidden" name="new_image_name" id="new_image_name" value="" />
 	</form>
   </div>
 </div>
