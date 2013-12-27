@@ -68,13 +68,19 @@ $course_title = Language::get('Ec2CourseInterface');
 $obj_course = $gestorBD->get_course_by_id($course_id);
 $has_key_stored = 0;
 $course_name = '';
+$custom_instructions = '';
+$custom_aws_username = '';
 
 if ($obj_course!=false) {
 	$course_title = $obj_course['title'];
 	$course_name = $obj_course['courseKey'];
 	$has_key_stored = $obj_course['has_key_stored']==1;
+	$custom_instructions = $obj_course['instructions'];
+	$custom_aws_username = $obj_course['aws_username_student'];	
 }
-
+if (!$custom_aws_username || strlen($custom_aws_username)==0) {
+	$custom_aws_username = DEFAULT_USERNAME_AWS;
+}
 $operation 	= isset($_POST['operation'])?$_POST['operation']:'';
 $name		= isset($_POST['name'])?$_POST['name']:'';
 $task	 	= isset($_POST['task'])?$_POST['task']:'';

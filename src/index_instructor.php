@@ -37,14 +37,13 @@
 	header("Content-type: text/html; charset=utf-8");
 
 	// Include the SDK
-	require_once './sdk.class.php';
 	require_once 'constants.php';
+	require_once './sdk.class.php';
 	require_once 'utils.php';
 	require_once('gestorBD.php');
 	require_once('lang.php');
 
 	$gestorBD = new GestorBD();
-	
 $course_instances = array();
 		
 $operation 	= isset($_POST['operation'])?$_POST['operation']:MYINSTANCES;
@@ -54,7 +53,10 @@ $task	 	= isset($_POST['task'])?$_POST['task']:'';
 $extra	 	= isset($_POST['extra'])?$_POST['extra']:'';
 $action     = isset($_POST['action'])?$_POST['action']:'';
 $busca     	= isset($_POST['boto'])?$_POST['boto']!='':'';
-if (isset($_POST['boto']) && ($_POST['boto'] == STARTSELECT || $_POST['boto'] == STOPSELECT || $_POST['boto'] == RELOAD )) {
+$custom_instructions     	= isset($_POST[CUSTOM_INSTRUCTIONS])?$_POST[CUSTOM_INSTRUCTIONS]:false;
+$custom_aws_username     	= isset($_POST[CUSTOM_AWS_USERNAME])?$_POST[CUSTOM_AWS_USERNAME]:DEFAULT_USERNAME_AWS;
+
+if (isset($_POST['boto']) && ($_POST['boto'] == STARTSELECT || $_POST['boto'] == STOPSELECT || $_POST['boto'] == RELOAD || $_POST['boto'] == RELOAD_USERS || $_POST['boto'] == AUTO_ASSIGN_USERS)) {
 	$action = $_POST['boto'];
 }
 $delete = isset($_POST['delete'])?$_POST['delete']:false;
@@ -69,7 +71,7 @@ $launch_as_image = (isset($_POST['launch_as_image']) && ($launch_as_new_image ||
 $create_instanceId = isset($_POST['create_instanceId'])?$_POST['create_instanceId']:false;
 $my_amis = array();
 
-if (!$_SESSION[IS_INSTRUCTOR]==1) {
+if (!isset($_SESSION[IS_INSTRUCTOR]) || !$_SESSION[IS_INSTRUCTOR]==1) {
 	show_error(Language::get('no estas autoritzat'));
 }
 $container = DOMAIN_PREFIX.$_SESSION[CONTEXT_ID]; //343407
@@ -77,14 +79,40 @@ $s = $_SESSION[SESSION_ID_FIELD];
 $instanceId = $_SESSION[INSTANCE_ID];
 $course_id = $_SESSION[COURSE_ID];
 
+if ($custom_instructions && strlen($custom_instructions)>0){
+	$gestorBD->setInstructionsAndUsernameStudent($course_id, $custom_instructions, $custom_aws_username);	
+}
+
+
 $course_name = '';
 $course_title = Language::get('Ec2CourseInterface');
 $obj_course = $gestorBD->get_course_by_id($course_id);
+$has_key_stored = 0;
 if ($obj_course!=false) {
 	$course_name = $obj_course['courseKey'];
 	$course_title = $obj_course['title'];
+	$has_key_stored = $obj_course['has_key_stored']==1;
+	$custom_instructions = $obj_course['instructions'];
+	$custom_aws_username = $obj_course['aws_username_student'];
 }
-//var_dump($_POST);
+if (!$custom_aws_username || strlen($custom_aws_username)==0) {
+	$custom_aws_username = DEFAULT_USERNAME_AWS;
+}
+if (!$custom_instructions || strlen($custom_instructions)==0) {
+	$custom_instructions = Language::get('instruccions1').'</br>'.
+	Language::get('instruccions2').'</br>';
+	$extra_ssh = '';
+	$username_ssh = '%USERNAME%';
+	if ($has_key_stored) {
+			$custom_instructions .= Language::getTag('instruccions3_ec2-user', '<a href="get_file.php" target="_blank">'.Language::get('aqui').'</a>');
+			$extra_ssh = ' -i path/to/'.sanitizeFilename($course_name).'.pem';
+		} else {
+		  $custom_instructions .= Language::get('instruccions3');
+		}
+		$custom_instructions .='</br>
+		<br><pre>ssh '.$username_ssh.'@%IP%'. $extra_ssh.'</pre><br>';
+		$custom_instructions .= Language::get('instruccions4').' (http://www.putty.org/)';
+}
 
 $ec2 = new AmazonEC2(array('key' => AWS_KEY, 'secret' => AWS_SECRET_KEY));
 if ($_SESSION[CUSTOM_AWS_REGION] && strlen($_SESSION[CUSTOM_AWS_REGION]))
@@ -110,6 +138,13 @@ elseif ($action==STARTSELECT || $action==STOPSELECT || $task==CHANGESTATE) {
 				$ec2->stop_instances($value);
 			} else {
 				$ec2->start_instances($value);
+				if ($elasticIP = $gestorBD->getAssociatedIp($value)) {
+					$response = $ec2->associate_address($value, $elasticIP);
+					if (!$response->isOK()) {
+						$msg_error = Language::getTag('Error associating elastic ip', $value).printEc2Error($response); 
+					}
+			
+				}
 			}
 		}
 		$msg_ok = Language::get($action==STOPSELECT?'Instancies parades correctament':'Instancies iniciades correctament');
@@ -120,6 +155,13 @@ elseif ($action==STARTSELECT || $action==STOPSELECT || $task==CHANGESTATE) {
 			$ec2->stop_instances($id);
 		} else {
 			$ec2->start_instances($id);
+			if ($elasticIP = $gestorBD->getAssociatedIp($id)) {
+					$response = $ec2->associate_address($id, $elasticIP);
+					if (!$response->isOK()) {
+						$msg_error = Language::getTag('Error associating elastic ip', $id).printEc2Error($response); 
+					}
+			
+				}
 		}
 		$msg_ok = Language::getTag(($extra==STATERUNNING?'Instancia parada correctament':'Instancia iniciada correctament'), $id);
 	} 
@@ -160,6 +202,56 @@ elseif ($action==DELETE_INSTANCE) {
 		}
 	} else {
 		$msg_error = Language::get('No es pot eliminar');
+	}
+}
+elseif ($action==ASSIGN_ELASTIC_IP) {
+	$assign_elastic_ip_instance = isset($_POST['assignIpInstance'])?$_POST['assignIpInstance']:false;
+
+	//Get the new elastic IP
+	$response = $ec2->allocate_address();
+		
+	if ($response->isOK()&& isset($response->body))
+	{
+		$elasticIP = $response->body->publicIp;
+		//Associate to instance
+		$response = $ec2->associate_address($assign_elastic_ip_instance, $elasticIP);
+		if ($response->isOK()) {
+			if ($gestorBD->associateIp($assign_elastic_ip_instance, $elasticIP)) {
+				 $msg_ok = Language::getTagDouble('Associated sucessfully to instance', $assign_elastic_ip_instance);
+			}
+			else {
+				$response = $ec2->release_address(array('PublicIp'=>$elasticIP));
+				$msg_error = Language::getTagDouble('Error associating instance to ip in db', $assign_elastic_ip_instance, $elasticIP); 
+			}	
+		}
+		else {
+			$response = $ec2->release_address(array('PublicIp'=>$elasticIP));
+			$msg_error = Language::getTag('Error associating elastic ip', $assign_elastic_ip_instance).printEc2Error($response); 
+		}
+	} else {
+		$msg_error = Language::getTag('Error allocating elastic ip', $assign_elastic_ip_instance).printEc2Error($response);
+	}
+}
+elseif ($action==RELEASE_ELASTIC_IP) {
+	$assign_elastic_ip_instance = isset($_POST['assignIpInstance'])?$_POST['assignIpInstance']:false;
+   	if ($elasticIP = $gestorBD->getAssociatedIp($assign_elastic_ip_instance)) {
+		//Get the new elastic IP
+		$response = $ec2->release_address(array('PublicIp'=>$elasticIP));
+			
+		if ($response->isOK())
+		{
+			if ($gestorBD->releaseIP($assign_elastic_ip_instance)) {
+				 $msg_ok = Language::getTagDouble('Released sucessfully to instance', $assign_elastic_ip_instance);
+			}
+			else {
+				$msg_error = Language::getTagDouble('Error releasing ip in db', $assign_elastic_ip_instance, $elasticIP); 
+			}	
+		
+		} else {
+			$msg_error = Language::getTag('Error releasing elastic ip', $assign_elastic_ip_instance).printEc2Error($response);
+		}
+	} else {
+		$msg_error = Language::getTag('Error releasing elastic ip not found', $assign_elastic_ip_instance).printEc2Error($response);
 	}
 }
 elseif ($action==DELETE_IMAGE) {
@@ -371,11 +463,34 @@ function deleteInstance(form) {
 		}
 	});
 }
+function assignIPJS(id) {
+	bootbox.confirm("<?php echo Language::get('Segur que vol assingar Elastic IP per')?> "+id+"?", function(result) {
+        if (result) {
+			var form =  document.getElementById("form"+id);
+			form.action.value = "<?php echo ASSIGN_ELASTIC_IP;?>";
+			form.submit();
+		}
+	});
+}
+function releaseIPJS(id) {
+	bootbox.confirm("<?php echo Language::get('Segur que vol alliberar Elastic IP per')?> "+id+"?", function(result) {
+        if (result) {
+			var form =  document.getElementById("form"+id);
+			form.action.value = "<?php echo RELEASE_ELASTIC_IP;?>";
+			form.submit();
+		}
+	});
+}
+
+function showInfo(name_info) {
+	var msg = $('#'+name_info).html();	
+	bootbox.alert(msg);
+}
 function deleteImage(form) {
 	var id = form.delete_image.value;	
-	bootbox.confirm("<?php echo Language::get('Segur que vol eliminar la imatge')?> "+id+"?", function(result) {
+	bootbox.confirm("Are you sure you want to delete the image "+id+"?", function(result) {
         if (result) {	
-			form.action.value="<?php echo DELETE_IMAGE;?>";
+			form.action.value="delete_image";
 			form.submit();
 		}
 	});
@@ -386,7 +501,7 @@ function createImageFromInstance(form) {
 		if (result === null) {
 			bootbox.alert("<?php echo Language::get('Indicate a name') ?>");
 		} else {
-			$('#new_image_name').val(result);
+			form.new_image_name.value = result;
 			form.action.value="<?php echo CREATE_IMAGE_FROM_INSTANCE;?>";
 			form.submit();
 		}
@@ -446,12 +561,42 @@ function assignStudents(form, assign) {
 											<button type="submit" name="boto" value="<?php echo RELOAD?>" class="boto">
 											    <i class="icon-refresh"></i> <?php echo Language::get('reload')?>
 											</button>
+											<?php 
+											//Only shows if there is an integration with OKI
+												$required_class = 'org/osid/shared/SharedException.php';
+												if (filexists_aws ($required_class)) { ?>
+											<button type="submit" name="boto" value="<?php echo RELOAD_USERS?>" class="boto">
+											    <i class="icon-refresh"></i> <?php echo Language::get('reload_users')?>
+											</button>
+											<?php } ?>
+											<button type="submit" name="boto" value="<?php echo AUTO_ASSIGN_USERS?>" class="boto">
+											    <i class="icon-hand-right"></i> <?php echo Language::get('auto_assign_users')?>
+											</button>											
 											<button type="submit" name="boto" value="<?php echo STOPSELECT?>"  class="boto">
 											    <i class="icon-stop"></i> <?php echo Language::get('stop_selected')?>
 											</button>
 											<button type="submit" name="boto" value="<?php echo STARTSELECT?>" class="boto">
 											    <i class="icon-play"></i> <?php echo Language::get('start_selected')?>
 											</button>
+											<button href="#modalinstructions"  class="boto" data-toggle="modal">
+											    <i class="icon-help"></i> <?php echo Language::get('change_instructions')?>
+											</button>
+											<div id="modalinstructions" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+											  <div class="modal-header">
+											    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											    <h3 id="myModalLabelmodal"><?php echo Language::get('change_instructions')?></h3>
+											  </div>
+											  <div class="modal-body">
+												<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button><?php echo Language::get('ReplacementsInstructions');?></div> 
+												<p><textarea name="<?php echo CUSTOM_INSTRUCTIONS?>" class="textarea" placeholder="" style="width: 450px; height: 200px"><?php echo $custom_instructions; ?></textarea></p>
+												<p><?php echo Language::get('Username2ConnectInstance')?><input type="text" name="<?php echo CUSTOM_AWS_USERNAME?>" value="<?php echo $custom_aws_username?>" />
+											  </div>
+											  <div class="modal-footer">
+											    <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo Language::get('Close')?></button>
+											    <button class="btn btn-primary"><?php echo Language::get('Save changes')?></button>
+											  </div>
+											</div>
+
 									<!--input type="submit" class="boto" name="boto" value="<?php echo Language::get('busca')?>">
 									<input type="submit" class="boto" name="action" value="<?php echo STOPSELECT?>">
 									<input type="submit" class="boto" name="action" value="<?php echo STARTSELECT?>">
@@ -491,7 +636,7 @@ function assignStudents(form, assign) {
 											  </div>
 											</div>
 											<input type="hidden" name="action" value="<?php echo ACTION_AMI_MNGT ?>" />
-											<input type="hidden" name="id" value="" />
+											<input type="hidden" name="id" value="" /> 
 											<input type="hidden" name="extra" value="" />	
 										</form>	
 										<br />
@@ -501,6 +646,8 @@ function assignStudents(form, assign) {
 								</div><!-- /.tab-content -->
 							</div><!-- /.tabbable -->
 						</div><!-- /.row -->
+
+
 <?php
 $show_tabs=true;
 include('footer.php');

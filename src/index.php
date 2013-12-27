@@ -35,9 +35,9 @@ if (!class_exists("bltiUocWrapper")) {
 	require_once dirname(__FILE__).'/lib/IMSBasicLTI/utils/UtilsPropertiesBLTI.php';
 }
 //Incluim la BD
+require_once('constants.php');
 require_once('gestorBD.php');
 
-require_once('constants.php');
 require_once('utils.php');
 require_once('lang.php');
 /**
@@ -64,7 +64,10 @@ function lti_init() {
 		return false; 
 	}
 
-	session_start();
+//	if (session_status() == PHP_SESSION_NONE) { PHP 5.4
+	if(!isset($_SESSION)) { 
+		session_start();
+	}
     // See if we get a context, do not set session, do not redirect
     $context = new bltiUocWrapper(false, false);
     if ( ! $context->valid ) {
@@ -119,15 +122,15 @@ function lti_init() {
 			
 					$course = $gestorBD->get_course_by_courseKey($course_key);
 					$region = lti_get_aws_region($context);
-					
+					$aws_configuration = isset($context->info[FIELD_OTHER_CONF])?$context->info[FIELD_OTHER_CONF]:DEFAULT_AWS_ACCOUNT;
 					if (!$course) {
-						if (!$gestorBD->register_course($course_key, $course_name, $region)) {
+						if (!$gestorBD->register_course($course_key, $course_name, $region, $aws_configuration)) {
 							show_error(Language::get('lti:errorregistercourse'));
 						}
 						$course = $gestorBD->get_course_by_courseKey($course_key);
 					}
 					else {
-						if (!$gestorBD->update_course($course_key, $course_name, $region)) {
+						if (!$gestorBD->update_course($course_key, $course_name, $region, $aws_configuration)) {
 							show_error(Language::get('lti:errorupdatingcourse'));
 						}
 					}
@@ -151,8 +154,9 @@ function lti_init() {
 			    	$_SESSION[INSTANCE_ID] = lti_get_instance_id($context);
 			    	$_SESSION[SESSION_ID_FIELD] = lti_get_session_id($context);
 			    	$_SESSION[LANG] = lti_get_lang($context);
-			    	
-			    	
+			    	//abertranb 20131003 allow multiple sites
+			    	$_SESSION[FIELD_OTHER_CONF] = $aws_configuration;
+			    	//****** END
 			    	$url = 'getIP.php';
 			    	if ($is_instructor) {
 			    		$url = 'index_instructor.php';

@@ -44,6 +44,11 @@ define ('LAUNCH_PRESENTATION_LOCALE', 'launch_presentation_locale');
 define ('CUSTOM_LANG', 'custom_lang_id');
 define ('LANG', 'lang');
 define ('AUTHORIZATION_KEY' , 'uocPHP_aws_amazon');
+define ('EMAILOKI', 'email');
+define ('FULLNAMEOKI', 'fullName');
+define ('FIRSTNAMEOKI', 'firstName');
+define ('SURNAMEOKI', 'surName');
+define ('IMAGEOKI', 'photo');
 define ('SESSION_ID_FIELD' , 'custom_sessionid');
 define ('ADMINISTRATOR_ROLE', 'administrator');
 define ('LEARNER_ROLE', 'learner');
@@ -68,3 +73,14 @@ define ('FIELD_AMI_BY_ID', 'add_ami_by_id');
 define ('CREATE_IMAGE_FROM_INSTANCE', 'create_image_from_instance');
 define ('ASSIGN_USERS', 'assign_users');
 define ('LAUNCH_INSTANCES', 'launch_instances');
+//abertranb 20131003 allow multiple sites
+define ('FIELD_OTHER_CONF', 'custom_idconfiguration');
+define ('DEFAULT_AWS_ACCOUNT', 'default_aws_account');
+//****** END
+define ('RELOAD_USERS', 'reload_users');
+define ('AUTO_ASSIGN_USERS', 'auto_assign_users');
+define ('CUSTOM_INSTRUCTIONS', 'custom_instructions');
+define ('CUSTOM_AWS_USERNAME', 'custom_aws_username');
+define ('DEFAULT_USERNAME_AWS', 'ec2-user');
+define ('ASSIGN_ELASTIC_IP', 'assign_elastic_ip');
+define ('RELEASE_ELASTIC_IP', 'release_elastic_ip');

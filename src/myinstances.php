@@ -34,7 +34,8 @@ require_once dirname(__FILE__).'/utils.php';
 $required_class = 'org/osid/shared/SharedException.php';
 $exists= filexists_aws ($required_class);
 $students = $gestorBD->getUsersCourse($course_id, true, true);
-if (count($students)==0 && $exists && !empty($s)) {
+$force_reload = isset($_POST['boto'])?$_POST['boto'] == RELOAD_USERS:false;
+if (($force_reload || !$students || count($students)==0) && $exists && !empty($s)) {
 
 	require_once $required_class;
 	require_once "org/campusproject/components/AuthenticationComponent.php";
@@ -63,7 +64,30 @@ if (count($students)==0 && $exists && !empty($s)) {
 			if (AgentComponent::isStudent($sa)) {
 				for($members = $sa->getMembers(false); $members->hasNextAgent();) {
 					$member = $members->nextAgent();
-					$gestorBD->afegeixEstudiant($course_id, $member->getDisplayName());
+				
+					$current_fullname = '';
+					$current_surname = '';
+					$current_email = '';
+					$current_image = '';
+					$properties = $member->getPropertiesByType($agent->getUserPropertiesType());
+					$keys_iterator = $properties->getKeys();
+					while ($keys_iterator->hasNextObject()) {
+						$key = $keys_iterator->nextObject();
+						$value = $properties->getProperty($key);
+						//$value = mb_convert_encoding($value, 'ISO-8859-1', 'UTF-8');
+						if ($key==FULLNAMEOKI) {
+							$current_fullname = $value;
+						} elseif ($key==FIRSTNAMEOKI) {
+							$current_name = $value;
+						} elseif ($key==SURNAMEOKI) {
+							$current_surname = $value;
+						} elseif ($key==EMAILOKI) {
+							$current_email = $value;
+						} elseif ($key==IMAGEOKI) {
+							$current_image = $value;
+						}
+					}
+					$gestorBD->afegeixEstudiant($course_id, $member->getDisplayName(), $current_fullname, $current_email, $current_image);
 				}
 			}
 		}
@@ -84,7 +108,8 @@ $response = $ec2->describe_instances();
 	<table>
 		<thead> 
 			<tr class="odd">
-			    <th scope="col"><input type="checkbox" onclick="Javascript:aplicarCheckedTot(this.checked)" /></th>
+			    <th scope="col"></th>
+				<th scope="col"><input type="checkbox" onclick="Javascript:aplicarCheckedTot(this.checked)" /></th>
 				<th scope="col"><?php echo Language::get('instanceId')?></th>
 				<th scope="col"><?php echo Language::get('Nom')?></th>
 				<th scope="col"><?php echo Language::get('imageId')?></th>
@@ -107,6 +132,11 @@ $response = $ec2->describe_instances();
 	
 		<?php 
 		$i=0;
+		$unassigned_students_data = $gestorBD->get_users_unassigned_users_by_course($course_id, true);
+		$unassigned_users = false;
+		if ($action == AUTO_ASSIGN_USERS) {
+			$unassigned_users = $gestorBD->get_users_unassigned_users_by_course($course_id, false);
+		}
 		// Loop through the response...
 		foreach ($response->body->reservationSet->item as $obj_item)
 		{ 
@@ -120,26 +150,32 @@ $response = $ec2->describe_instances();
 					//abertranb 20130102 - Added the launch like this
 					$imageId	= $item->imageId;
 					// ******* END
-					if ($item->instanceState->name==STATERUNNING && $gestorBD->existeixInstancia($instanceId)) {
-						$ip_anterior = $gestorBD->ipAssignada($instanceId);
-						//Antoni 20120321 de moment desactivem el canvi de la ip
-						if (false && $ip_anterior!=$current_ip) {
+					/*if ($item->instanceState->name==STATERUNNING && $gestorBD->existeixInstancia($instanceId)) {
+						$ip_anterior = $gestorBD->getAssociatedIp($instanceId);
+						if ($ip_anterior!=$current_ip) {
 							//He de cridar a la API per canviarla
 							$current_ip = $ip_anterior;
 							$result = $ec2->associate_address($instanceId, $current_ip);
-							if (!$result || $result->body->return!=true)
-								die("ERROR assignant la IP $current_ip per $instanceId");
 						}
-					}
+					}*/
 					$gestorBD->afegeixInstancia($instanceId, $item->imageId, $item->tagSet->item[0]->value, $item->keyName, $item->instanceState->name,
 					$item->ipAddress, $item->dnsName, $item->privateDnsName, $item->launchTime, $item->instanceType, $item->kernel,
 					$item->architecture, $item->monitoring->state, getDeviceMapping($item->blockDeviceMapping->item), $_SESSION[CUSTOM_AWS_REGION]);
 					$students_selected = $gestorBD->getUserPerInstancia($instanceId, $course_id, true);
+					if ($action == AUTO_ASSIGN_USERS && 
+						$unassigned_users && 
+						count($unassigned_users)>0 &&
+						(!$students_selected || count($students_selected)==0)) {
+							$current_user_to_assign = array_shift($unassigned_users);
+							$gestorBD->assignaUsuari($instanceId, '', $course_id, $_SESSION[USERNAME], $current_user_to_assign['id_user']);
+							$students_selected = $gestorBD->getUserPerInstancia($instanceId, $course_id, true);
+					}
 					if (!in_array_value($item->imageId.'', $my_amis)) {
 						$my_amis[] = $item->imageId.'';
 					}
 				?>
 				<tr<?php echo $i%2==1?' class="odd"':''?>>
+					<td><?php echo $i+1?> </td>
 					<td><input type="checkbox" name="id[]" value="<?php echo $instanceId ?>" /></td>
 					<td><?php echo $instanceId?></td>
 					<td><span id="<?php echo 'instance_name_'.$instanceId?>" data-type="text" data-toggle="manual" data-pk="<?php echo $instanceId?>" data-placeholder="Required" data-original-title="<?php echo Language::get('Change name');?>" ><?php echo $item->tagSet->item[0]->value?></span><a href="#" id="<?php echo 'instance_pencil_'.$instanceId?>"><i class="icon-pencil"></i></a></td>
@@ -168,7 +204,8 @@ $response = $ec2->describe_instances();
 					</td>
 					<!-- td><?php echo $item->kernelId?></td>
 					<td><?php echo $item->architecture?></td> -->
-					<td><button class="boto" ><a href="getIP.php?<?php echo INSTANCEC2ID.'='.$instanceId ?>"><i class="icon-cloud"></i> <?php echo Language::get('AccessInfo')?></a></button></td>
+					<td><a class="boto" href="getIP.php?<?php echo INSTANCEC2ID.'='.$instanceId ?>" ><i class="icon-cloud"></i> <?php echo Language::get('AccessInfo')?></a></td>
+					<!--td><form action="getIP.php"><button class="boto" type="submit" ><i class="icon-cloud"></i> <?php echo Language::get('AccessInfo')?></button><input type="hidden" name="<?php echo INSTANCEC2ID; ?> value="<?php echo $instanceId; ?>" /></form></td-->
 					<td><button href="#modal<?php echo $instanceId ?>" role="button" class="boto" data-toggle="modal"><i class="icon-wrench"></i> <?php echo Language::get('Actions')?></button>
 <div id="modal<?php echo $instanceId ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-header">
@@ -181,7 +218,6 @@ $response = $ec2->describe_instances();
 			<p><span class="label"><?php echo Language::get('Nom')?>:</span> <?php echo $item->tagSet->item[0]->value?></p>
 			<p><span class="label"><?php echo Language::get('imageId')?>:</span> <?php echo $item->imageId?></p>
 			<p><span class="label"><?php echo Language::get('instanceState')?>:</span> <a href="#" class="<?php if ($item->instanceState->name==STATERUNNING){?>green<?php }else{?>red<?php }?>" title="<?php if ($item->instanceState->name==STATERUNNING){ echo Language::get('stop'); }else{ echo Language::get('start'); }?> <?php echo $instanceId?>" onclick="Javascript:canviaEstat('<?php echo $item->instanceState->name?>', '<?php echo $instanceId ?>')"><?php echo $item->instanceState->name;?></a></p>
-			<p><span class="label"><?php echo Language::get('ipAddress')?>:</span> <?php echo $current_ip?></p>
 			<p><span class="label"><?php echo Language::get('ip amazon')?>:</span> <?php echo $item->dnsName?></p>
 			<p><span class="label"><?php echo Language::get('privateDnsName')?>:</span> <?php echo $item->privateDnsName?></p>
 		</div>	
@@ -194,16 +230,30 @@ $response = $ec2->describe_instances();
 		</div>
 	</div>	
 	<div class="row-fluid">
+		<p><span class="label"><?php echo Language::get('ipAddress')?>:</span> <?php echo $current_ip?> 
+		<?php 
+			if (!$gestorBD->getAssociatedIp($instanceId)) {?>
+			<input type="button" class="small btn btn-primary"  name="assignIP" onclick="Javascript:assignIPJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('assignIP')?>" />&nbsp;<a href="Javascript:showInfo('<?php echo 'assignIP'.$instanceId?>');"><i class="icon-info"></i></a>
+			<div id="<?php echo 'assignIP'.$instanceId?>" class="hide"><i class="icon-info"></i>&nbsp;<?php echo Language::getTagDouble('InfoElasticIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>')?><br><i><?php echo Language::get('assignIPShouldBeRunning');?></i></div>
+			<?php } else { ?>
+			<!--input type="button" class="small btn btn-primary"  name="disassociateIP" onclick="Javascript:disassociateIPJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('disassociateIP')?>" />&nbsp;<a href="Javascript:showInfo('<?php echo 'disassociateIP'.$instanceId?>');"><i class="icon-info"></i></a>
+			<div id="<?php echo 'disassociateIP'.$instanceId?>" class="hide"><i class="icon-info"></i>&nbsp;<?php echo Language::getTagDouble('InfoElasticDisassociateIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>')?></div-->
+			<input type="button" class="small btn btn-primary"  name="releaseIP" onclick="Javascript:releaseIPJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('releaseIP')?>" />&nbsp;<a href="Javascript:showInfo('<?php echo 'releaseIP'.$instanceId?>');"><i class="icon-info"></i></a>
+			<div id="<?php echo 'releaseIP'.$instanceId?>" class="hide"><i class="icon-info"></i>&nbsp;<?php echo Language::getTagDouble('InfoElasticReleaseIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>')?></div>				
+			<?php } ?>
+		</p>
+	</div>
+	<div class="row-fluid">
 		<form method="POST">
 			<table>
 				<tr>
 				 <td>
 			  		<p><span class="label"><?php echo Language::get('Usuari assignat')?>:</p>
 					<p><select name="<?php echo UN_NAME_OPTION.$instanceId; ?>[]" id="<?php echo UN_NAME_OPTION.$instanceId; ?>" size="3" multiple="multiple" class="boto">
-						<?php if (isset($students) && is_array($students) ) {
-								foreach ($students as $student_key => $student) {
-									if (!isset($students_selected[$student_key])){?>
-									<option value="<?php echo $student_key;?>"><?php echo $student['fullname']?></option>
+						<?php if (isset($unassigned_students_data) && is_array($unassigned_students_data) ) {
+								foreach ($unassigned_students_data as $student) {
+									if (!isset($students_selected[$student['userKey']])){?>
+									<option value="<?php echo $student['userKey'];?>"><?php echo $student['fullname']?></option>
 									<?php }
 								}
 						}?>
@@ -234,13 +284,15 @@ $response = $ec2->describe_instances();
 	</div>
   </div>
   <div class="modal-footer">
-    <form method="POST" onsubmit="return false;"><button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo Language::get('Close')?></button>
+    <form method="POST" onsubmit="return false;"  id="form<?php echo $instanceId ?>" name="form<?php echo $instanceId ?>"><button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo Language::get('Close')?></button>
     <button class="btn btn-primary"  name="deleteaction" onclick="Javascript:deleteInstance(this.form)"><?php echo Language::get('Elimina maquina')?></button>
     <button class="btn btn-primary"  name="launch_as_image_source_image" onclick="Javascript:createImageFromInstance(this.form)"><?php echo Language::get('Create image')?></button>
     <input type="hidden" name="delete" value="<?php echo $instanceId?>" />
 	<input type="hidden" name="create_instanceId" value="<?php echo $instanceId; ?>" />
+	<input type="hidden" name="assignIpInstance" value="<?php echo $instanceId?>" />
 	<input type="hidden" name="imageId" value="<?php echo $imageId?>" />
-	<input type="hidden" name="action" value="" />
+	<input type="hidden" name="action" value="" id="formAction<?php echo $instanceId ?>" />
+	<input type="hidden" name="accio" value="" />
 	<input type="hidden" name="new_image_name" id="new_image_name" value="" />
 	</form>
   </div>

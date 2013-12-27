@@ -33,7 +33,7 @@ require_once 'constants.php';
 if (!isset($_SESSION)) {
 	session_start();
 }
-$lang = $_SESSION[LANG];
+$lang = isset($_SESSION[LANG])?$_SESSION[LANG]:false;
 if (!$lang) {
 	$lang = 'es-ES';
 	$_SESSION[LANG] = $lang;

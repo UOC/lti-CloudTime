@@ -134,3 +134,13 @@ function show_error($msg) {
 	require_once('footer.php');
 	exit();
 }
+
+/**
+ * Returns if file configuration exists
+ * @param  [type] $aws_conf [description]
+ * @return boolean
+ */
+function configuration_exists($aws_conf) {
+	return  file_exists(dirname(__FILE__).'/config.aws.'.$aws_conf.'.inc.php');
+
+}

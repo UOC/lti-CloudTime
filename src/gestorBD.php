@@ -84,8 +84,8 @@
                     $result = mysql_query($query, $this->conn);
                     if (!$result) {
                     	
-                    	echo("Error BD ".mysql_error());
-                    	echo("<p>Query:".$query."</p>");
+                    	echo("<!--Error BD ".mysql_error());
+                    	echo("Query:".$query."-->");
                     }
                     return $result;
                 }
@@ -111,7 +111,7 @@
                 */
                 public function retornaTotesLesInstancies()
                 {
-                	$result = $this->consulta("SELECT instanceId, amazon_region  FROM ec2_instance ");
+                	$result = $this->consulta("SELECT instanceId, amazon_region, keyName  FROM ec2_instance ");
                 	if($this->numResultats($result) > 0){
                 		$rows = $this->obteComArray($result);
                 		return $rows;
@@ -289,28 +289,57 @@
                 * @param unknown_type $ipAddress
                 * @return unknown|boolean
                 */
-                public function assignaUsuari($instanceId, $username, $id_course, $userKeyCreated)
+                public function assignaUsuari($instanceId, $username, $id_course, $userKeyCreated, $user_id=0)
                 {
                 	
 	                $result = false;
-	                $user = $this->get_user_by_username($username);
+                    if ($user_id==0) {
+	                   $user = $this->get_user_by_username($username);
+                       $user_id = $user['id'];
+                    }
 	                //TODO pensar com fer-ho ja que no fucniona amb $user_assigned = $this->getInstanciaPerUsuariCurs($user['id'], $id_course);
 	                //$user_assigned = $this->getUserPerInstancia($instanceId, $id_course);
 	                //Eliminem la relacio anterior si ni hi ha
-	                $sql = 'DELETE FROM ec2_instance_user_course WHERE id_user ='.$user['id'].' AND  id_course = '.$id_course;
+	                $sql = 'DELETE FROM ec2_instance_user_course WHERE id_user ='.$user_id.' AND  id_course = '.$id_course;
 	                $result = $this->consulta($sql);
 	                 
 	                //$instance_assigned = $this->getInstanciaPerUsuariCurs($user['id'], $id_course);
 	                //if (!$instance_assigned) {
 	                	$sql = 'INSERT INTO ec2_instance_user_course (instanceId, id_user, id_course, total_time_connected, created, userKeyCreated) 
-	                											VALUES ('.$this->escapeString($instanceId).','.$user['id'].','.$id_course.', 0, now(), '.$this->escapeString($userKeyCreated).')';
+	                											VALUES ('.$this->escapeString($instanceId).','.$user_id.','.$id_course.', 0, now(), '.$this->escapeString($userKeyCreated).')';
 	                /*} else {
 	                	$sql = 'UPDATE ec2_instance_user_course SET id_user ='.$user['id'].', instanceId ='.$this->escapeString($instanceId).' where id_course = '.$id_course.' AND instanceId ='.$this->escapeString($instance_assigned);
 	                }*/
 	                $result = $this->consulta($sql);
 	                return $result;
                 }
-                
+
+                /**
+                 * [get_users_unassigned_users_by_course description]
+                 * @param  [type] $id_course [description]
+                 * @return [type]            [description]
+                 */
+                public function get_users_unassigned_users_by_course($id_course, $all_data=false){
+                    $extra_sql = '';
+                    $extra_sql_select = '';
+                    if ($all_data){
+                        $extra_sql_select = ', u.* ';
+                        $extra_sql = 'inner join user u on u.id = uc.id_user ';
+                    }
+                    $sql = 'select id_user'.$extra_sql_select.' from user_course uc '.
+                    $extra_sql.
+                    'where uc.id_course='.$this->escapeString($id_course).'
+                     and is_instructor = 0 
+                     and uc.id_user not in 
+                        (select eiuc.id_user from ec2_instance_user_course eiuc where eiuc.id_course = '.$this->escapeString($id_course).')';
+                    $result = $this->consulta($sql);
+                    $rows = array();
+                    if($this->numResultats($result) > 0){
+                        $rows = $this->obteComArray($result);
+                    }    
+                    return  $rows;   
+
+                }
                 
                 /**
                 *
@@ -432,7 +461,7 @@
                 	$result = false;
                 	$sql = 'UPDATE user SET fullname = '.$this->escapeString($name).', email = '.$this->escapeString($email).', image = '.$this->escapeString($image).', last_session=now() '.  
                 	'WHERE userKey = '.$this->escapeString($username);
-                	$result = $this->consulta($sql);
+                    $result = $this->consulta($sql);
                 	return $result;
                 } 
                 
@@ -440,17 +469,17 @@
                 /**
                  *
                   * Obte si existeix el curs
-                * @param unknown_type $courseKey
+                * @param unknown_type $id
                  * @return array|boolean
                 */
                 public function get_course_by_id($id) {
-                $result = $this->consulta("SELECT * FROM course where id = ".$this->escapeString($id));
-                if($this->numResultats($result) > 0){
-                	$row = $this->obteObjecteComArray($result);
-                	                	return $row;
-                }else{
-                	return false;
-                }
+                    $result = $this->consulta("SELECT * FROM course where id = ".$this->escapeString($id));
+                    if($this->numResultats($result) > 0){
+                    	$row = $this->obteObjecteComArray($result);
+                    	                	return $row;
+                    }else{
+                    	return false;
+                    }
                 }
                 
                 /**
@@ -477,10 +506,13 @@
                	* @param string $amazon_region referes to aws amazon_region
                	* @return boolean
                 */
-    			public function register_course($courseKey, $title, $amazon_region=null) {
+    			public function register_course($courseKey, $title, $amazon_region=null, 
+                    $course_aws_configuration=DEFAULT_AWS_ACCOUNT) {
                 	$result = false;
-                	$sql = 'INSERT INTO course (courseKey, title, created, amazon_region)
-                				VALUES ('.$this->escapeString($courseKey).','.$this->escapeString($title).', now(), '.($amazon_region==null?'null':$this->escapeString($amazon_region)).')';
+                	$sql = 'INSERT INTO course (courseKey, title, created, amazon_region, aws_configuration)
+                				VALUES ('.$this->escapeString($courseKey).','.$this->escapeString($title).', 
+                                    now(), '.($amazon_region==null?'null':$this->escapeString($amazon_region)).',
+                                     '.($course_aws_configuration==null?'null':$this->escapeString($course_aws_configuration)).')';
           			$result = $this->consulta($sql);
                 	return $result;
                 }
@@ -493,10 +525,12 @@
                 * @param string $amazon_region referes to aws amazon_region
             	* @return unknown
                 */
-                public function update_course($courseKey, $title, $amazon_region=null) {
+                public function update_course($courseKey, $title, $amazon_region=null, $course_aws_configuration=DEFAULT_AWS_ACCOUNT) {
     	            $result = false;
-	                $sql = 'UPDATE course SET title = '.$this->escapeString($title).', amazon_region = '.($amazon_region==null?'null':$this->escapeString($amazon_region)).
-	                ' WHERE courseKey = '.$this->escapeString($courseKey);
+	                $sql = 'UPDATE course SET title = '.$this->escapeString($title).', '. 
+                    'amazon_region = '.($amazon_region==null?'null':$this->escapeString($amazon_region)).', '.
+                    'aws_configuration = '.($course_aws_configuration==null?'null':$this->escapeString($course_aws_configuration)).
+                    ' WHERE courseKey = '.$this->escapeString($courseKey);
 	                $result = $this->consulta($sql);
 	                return $result;
                 }
@@ -542,15 +576,22 @@
                  * @param unknown_type $username
                  * @return unknown
                  */
-                public function afegeixEstudiant($course_id, $username) {
+                public function afegeixEstudiant($course_id, $username, $name=false, $email='', $image='') {
                 	$isInstructor = 0;
                 	$result = false;
                 	$user=$this->get_user_by_username($username);
+                    if (!$name) {
+                        $name = $username;
+                    }
                 	if (!$user) {
-                		if ($this->register_user($username, $username, '', '')) {
+                		if ($this->register_user($username, $name, $email, $image)) {
                 			$user = $this->get_user_by_username($username);
                 		}
-                	}
+                	} else {
+                        if ($this->update_user($username, $name, $email, $image)) {
+                            $user = $this->get_user_by_username($username);
+                        }
+                    }
                 	if ( $user ) {
                 		$user_id = $user['id'];
 	                	$result = $this->join_course($course_id, $user_id, $isInstructor);
@@ -682,5 +723,107 @@
                     return $result;
                 }
 
+                /**
+                 * Gets the configuration of AWS
+                 * @param  [type] $instanceId [description]
+                 * @return [type]             [description]
+                 */
+                public function getInstanceAWSConfiguration($course_id) {
+                    $aws_configuration = array('type' => DEFAULT_AWS_ACCOUNT, 
+                        'key' => AWS_KEY, 'secret' => AWS_SECRET_KEY);
+
+                    $row = $this->get_course_by_courseKey($course_id);
+                    if($row) {
+                        $file_configuration = $row['aws_configuration'];
+                        if ($file_configuration && configuration_exists($file_configuration)) {
+                            include_once(dirname(__FILE__).'/config.aws.'.$file_configuration.'.inc.php');
+                            global $current_AWS_KEY,$current_AWS_SECRET_KEY;
+                            $aws_configuration = array('type' => $file_configuration, 
+                            'key' => $current_AWS_KEY, 'secret' => $current_AWS_SECRET_KEY);
+                        }
+                    }
+                    return $aws_configuration;
+
+                }
+
+                /**
+                 * Get the instructions to connect
+                 * @param  [type] $id_course [description]
+                 * @return [type]            [description]
+                 */
+                 public function get_instructions($id_course){
+                    $sql = 'select instructions from course where id='.$this->escapeString($id_course);
+                    $result = $this->consulta($sql);
+                    $instructions = false;
+                    if($this->numResultats($result) > 0){
+                        $rows = $this->obteObjecteComArray($result);
+                        $instructions = $rows['instructions'];
+                        if (strlen($instructions)==0) {
+                            $instructions = false;
+                        }
+                    }    
+                    return  $instructions;   
+                }
+
+                /**
+                 * Set the instructions to course
+                 * @param [type] $id_course    [description]
+                 * @param [type] $instructions [description]
+                 */
+                public function setInstructionsAndUsernameStudent($id_course, $instructions, $username_student)
+                {
+                    $result = true;
+                    $result = $this->consulta("UPDATE course set instructions =".$this->escapeString($instructions)." ,
+                        aws_username_student =".$this->escapeString($username_student)." 
+                        where id = ".$this->escapeString($id_course), $this->conn);
+                    return $result;           
+                }
+
+                /**
+                 * Associates the elastic IP to a instance
+                 * @param [type] $instanceId    [description]
+                 * @param [type] $ip [description]
+                 */
+                public function associateIp($instanceId, $ip)
+                {
+                    $result = true;
+                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 1, ipAddress= ".$this->escapeString($ip)." 
+                        where instanceId = ".$this->escapeString($instanceId), $this->conn);
+                    return $result;           
+                }
+
+                /**
+                 * Release the elastic IP to a instance
+                 * @param [type] $instanceId    [description]
+                 */
+                public function releaseIP($instanceId)
+                {
+                    $result = true;
+                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 0
+                        where instanceId = ".$this->escapeString($instanceId), $this->conn);
+                    return $result;           
+                }
+
+
+                /**
+                 * Get if instance has a elasticIp
+                 * @param  [type] $instanceId [description]
+                 * @return [type]            [description]
+                 */
+                 public function getAssociatedIp($instanceId){
+                    $sql = 'select ipAddress from ec2_instance where instanceId='.$this->escapeString($instanceId).' and has_elastic_ip=1';
+                    $result = $this->consulta($sql);
+                    $ipAddress = false;
+                    if($this->numResultats($result) > 0){
+                        $rows = $this->obteObjecteComArray($result);
+                        $ipAddress = $rows['ipAddress'];
+                        if (strlen($ipAddress)==0) {
+                            $ipAddress = false;
+                        }
+                    }    
+                    return  $ipAddress;   
+                }                
+
+
         }
-?>
+

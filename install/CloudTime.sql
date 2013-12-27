@@ -6,6 +6,9 @@ CREATE TABLE `course` (
   `created` datetime DEFAULT NULL,
   `has_key_stored` decimal(1,0) DEFAULT 0,
   `amazon_region` varchar(80) DEFAULT NULL,
+  `instructions` text DEFAULT NULL,
+  `aws_username_student` varchar(100) default null,
+  `aws_configuration` varchar(40) DEFAULT 'default_aws_account',
   PRIMARY KEY (`id`),
   KEY `courseKey` (`courseKey`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -47,6 +50,7 @@ CREATE TABLE `ec2_instance` (
   `blockDeviceMapping` varchar(50) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `amazon_region` varchar(80) DEFAULT NULL,
+  `has_elastic_ip` bit DEFAULT 0,
   PRIMARY KEY (`instanceId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

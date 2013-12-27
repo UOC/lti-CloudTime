@@ -66,23 +66,34 @@ $i=0;
 		<div class="alert alert-error"><?php echo Language::get('noinstancesassignated')?></div>
 	<?php } else {
 		
-	?>
-		<!--h3><?php echo Language::get('myinstancesmanagement')?></h3-->
-		<h4><?php echo Language::get('instruccions_caps')?>:</h4>
-		<?php echo Language::get('instruccions1')?></br>
-		<?php echo Language::get('instruccions2')?></br>
-		<?php 
-		$username_ssh = 'user';
+	if (!$custom_instructions || strlen($custom_instructions)==0) {		
+		$username_ssh = $custom_aws_username;
+		$extra_instructions = '';
 		$extra_ssh = '';
 		if ($has_key_stored) {
-			echo Language::getTag('instruccions3_ec2-user', '<a href="get_file.php" target="_blank">'.Language::get('aqui').'</a>');
-			$username_ssh = 'ec2-user';
-			$extra_ssh = ' -i path/to/'.sanitizeFilename($course_name).'.pem';
+			$extra_instructions .= Language::getTag('instruccions3_ec2-user', '<a href="get_file.php" target="_blank">'.Language::get('aqui').'</a>');
+			$extra_ssh .= ' -i path/to/'.sanitizeFilename($course_name).'.pem';
 		} else {
-		  echo Language::get('instruccions3');
-		}?></br>
-		<br><pre>ssh <?php echo $username_ssh?>@<?php echo (isset($current_ip) && strlen($current_ip)>0)? $current_ip:'XXX.XXX.X.XXX' ?><?php echo $extra_ssh; ?></pre><br>
-		<?php echo Language::get('instruccions4')?> (http://www.putty.org/)
+		  	$extra_instructions .= Language::get('instruccions3');
+		}
+	 	$custom_instructions = Language::get('myinstancesmanagement').
+			'<h4>'.Language::get('instruccions_caps').':</h4>'.
+			Language::get('instruccions1').'</br>'.
+			Language::get('instruccions2').'</br>'.
+			$extra_instructions.'</br><br>'.
+			'<pre>ssh %USERNAME%@%IP%'.
+			$extra_ssh.'</pre><br>'.
+			Language::get('instruccions4').' (http://www.putty.org/)';
+	
+	}
+	$ip_replace = (isset($current_ip) && strlen($current_ip)>0)? $current_ip:'XXX.XXX.X.XXX';
+	$custom_instructions = str_replace('%IP%', $ip_replace, $custom_instructions);
+	$custom_instructions = str_replace('%USERNAME%', $custom_aws_username, $custom_instructions);
+	if ($is_instructor){
+		//to avoid breadcrumb
+		echo '<br>';
+	}
+	echo $custom_instructions;?>
 			<div><?php echo sprintf(Language::get('dadesactualsinstancia'),$instanceId) ?>
 				<a href="#" class="<?php if ($item->instanceState->name==STATERUNNING){?>green<?php }else{?>red<?php }?>" title="<?php if ($item->instanceState->name==STATERUNNING){ echo Language::get('stop'); }else{ echo Language::get('start'); }?> <?php echo $instanceId?>" onclick="Javascript:canviaEstat('<?php echo $item->instanceState->name?>', '<?php echo $instanceId ?>')"><?php echo $item->instanceState->name;?></a><br> <?php echo (isset($current_ip) && strlen($current_ip)>0)? Language::get('amb_ip').' <b>'.$current_ip.'</b>':($esta_pending ? ' '.Language::get('no_ip').' </b>':Language::get('primer_encen_instance')) ?></div>
 				<div class="alert alert-info"><?php echo Language::get('apaga_maquina')?> <a href="#" onclick="Javascript:canviaEstat('<?php echo STATERUNNING?>', '<?php echo $instanceId ?>')"><?php echo Language::get('stop')?></a></div>

@@ -40,12 +40,32 @@
 	$titulo = 'Intancias paradas';	
 	$ec2 = new AmazonEC2(array('key' => AWS_KEY, 'secret' => AWS_SECRET_KEY));
 	
+//abertranb add field current_aws_configuration
+	$last_aws_configuration = array('type' => DEFAULT_AWS_ACCOUNT, 
+		'key' => AWS_KEY, 'secret' => AWS_SECRET_KEY);
+	$current_aws_configuration = $last_aws_configuration;
+	$last_keyName = '';
+//END
 	$instancies = $gestorBD->retornaTotesLesInstancies();
 	
 	foreach ($instancies as $instance) {
 
 		$instanceId	= $instance['instanceId'];
 		$region	= $instance['amazon_region'];
+
+//abertranb add field current_aws_configuration
+		$keyName = $instance['keyName'];
+		if ($last_keyName!=$keyName) {
+			$current_aws_configuration = $gestorBD->getInstanceAWSConfiguration($keyName);
+			if ($current_aws_configuration['type']!=$last_aws_configuration['type']) {
+				//new ec2
+				$ec2 = new AmazonEC2(array('key' => $current_aws_configuration['key'],
+					 'secret' => $current_aws_configuration['secret']));
+				$last_aws_configuration = $current_aws_configuration;
+			}
+			$last_keyName = $keyName;
+		}
+//END
 		if ($region==null || !$region) { //Marquem la per defecte
 			$region = AmazonEC2::REGION_US_E1;
 		}
@@ -148,14 +168,3 @@
 		return $protocol . "://" . $_SERVER['HTTP_HOST'] ;
 	}
 	
-	function tornaData($launchTime) {
-		$launchTime = strtotime($launchTime);
-		$d = date("d/m/Y h:m:s",$launchTime);
-		return $d;
-	}
-	//En hores
-	function quantTempsEncesa($launchTime) {
-		$launchTime = strtotime($launchTime);
-		$fa_quant_q_esta_encesa = round((time() - $launchTime)/3600,2);
-		return $fa_quant_q_esta_encesa;
-	}
