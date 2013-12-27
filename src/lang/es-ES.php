@@ -144,7 +144,7 @@ $language['auto_assign_users'] = 'Autoasignar usuarios';
 $language['change_instructions'] = 'Cambia instrucciones';
 $language['Username2ConnectInstance'] = 'Username para conectar a la máquina';
 $language['ReplacementsInstructions'] = 'Puedes usar las variables: %USERNAME% => nombre de usuario para conectar, %IP% => La ip asignada';
-$language['InfoElasticIP'] = 'Elastic Ips de Amazon es similar a la dirección IP estática en los centros de datos tradicionales, con una diferencia clave. Un usuario puede mediante programación asignar una direcci&oacute;n IP el&aacute;stica a cualquier instancia de m&aacute;quina virtual sin la ayuda de un administrador de la red y sin tener que esperar a que DNS para propagar la nueva asignaci&oacute;n. M&acute;s info %saqu&iacute;%s';
+$language['InfoElasticIP'] = 'Elastic Ips de Amazon es similar a la dirección IP estática en los centros de datos tradicionales, con una diferencia clave. Un usuario puede mediante programación asignar una direcci&oacute;n IP el&aacute;stica a cualquier instancia de m&aacute;quina virtual sin la ayuda de un administrador de la red y sin tener que esperar a que DNS para propagar la nueva asignaci&oacute;n. M&aacute;s info %saqu&iacute;%s';
 $language['assignIP'] = 'Asignar Elastic IP';
 $language['assignIPShouldBeRunning'] = 'Para asignar una elastic IP ha de estar encendida';
 $language['Segur que vol assingar Elastic IP per'] = '¿Seguro que quiere asignar una elastic IP para la instancia';
@@ -154,6 +154,6 @@ $language['IP Associated sucessfully to instance'] = 'IP %s asociada correctamen
 $language['Error associating instance to ip in db'] = 'Error asociando la instancia %s a la ip %s en bd';
 $language['disassociateIP'] = 'Desasociar IP';
 $language['releaseIP'] = 'Liberar IP';
-$language['InfoElasticReleaseIP'] = 'Si liberas la IP podr&aacute;s conseguir una otra pero no ser&aacute; la misma. Elastic Ips de Amazon es similar a la dirección IP estática en los centros de datos tradicionales, con una diferencia clave. Un usuario puede mediante programación asignar una direcci&oacute;n IP el&aacute;stica a cualquier instancia de m&aacute;quina virtual sin la ayuda de un administrador de la red y sin tener que esperar a que DNS para propagar la nueva asignaci&oacute;n. M&acute;s info %saqu&iacute;%s';
+$language['InfoElasticReleaseIP'] = 'Si liberas la IP podr&aacute;s conseguir una otra pero no ser&aacute; la misma. Elastic Ips de Amazon es similar a la dirección IP estática en los centros de datos tradicionales, con una diferencia clave. Un usuario puede mediante programación asignar una direcci&oacute;n IP el&aacute;stica a cualquier instancia de m&aacute;quina virtual sin la ayuda de un administrador de la red y sin tener que esperar a que DNS para propagar la nueva asignaci&oacute;n. M&aacute;s info %saqu&iacute;%s';
 $language['Segur que vol alliberar Elastic IP per'] = 'Seguro que quieres liberar Elastic IP para';
-$language['Released sucessfully to instance'] = 'Lliberada satisfactoriamente la ip de la instacia %s';
+$language['Released sucessfully to instance'] = 'Liberada satisfactoriamente la ip de la instacia %s';
