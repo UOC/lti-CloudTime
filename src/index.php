@@ -285,24 +285,46 @@ function lti_get_session_id($context) {
 
 function lti_get_lang($context) {
 	$lang = 'en-US';
-	if (isset($context->info[LAUNCH_PRESENTATION_LOCALE]))
+	if (isset($context->info[LAUNCH_PRESENTATION_LOCALE])) {
 		$custom_lang_id = $context->info[LAUNCH_PRESENTATION_LOCALE];
+	}
 	$custom_lang_id = ''; 
-	if (isset($context->info[CUSTOM_LANG]))
+	if (isset($context->info[CUSTOM_LANG])) {
 		$custom_lang_id = $context->info[CUSTOM_LANG];
-	switch ($custom_lang_id)
-	{
-		case "a":
-			$lang="ca-ES";
-			break;
-		case "b":
-			$lang="es-ES";
-			break;
-		case "d":
-			$lang="fr-FR";
-			break;
-		default:
-			$lang="en-US";
+		switch ($custom_lang_id)
+		{
+			case "a":
+				$lang="ca-ES";
+				break;
+			case "b":
+				$lang="es-ES";
+				break;
+			case "d":
+				$lang="fr-FR";
+				break;
+			default:
+				$lang="en-US";
+		}
+	}
+	
+	if (strlen($lang)<4){
+		switch ($lang)
+		{
+			case "en":
+				$lang="en_US";
+				break;
+			case "es":
+				$lang="es_ES";
+				break;
+			case "ca":
+				$lang="ca_ES";
+				break;
+			case "fr":
+				$lang="fr_FR";
+				break;
+			default:
+				$lang="en_US";
+		}
 	}
 	return $lang;	
 }
