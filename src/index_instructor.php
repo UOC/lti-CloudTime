@@ -139,6 +139,7 @@ elseif ($action==STARTSELECT || $action==STOPSELECT || $task==CHANGESTATE) {
 			} else {
 				$ec2->start_instances($value);
 				if ($elasticIP = $gestorBD->getAssociatedIp($value)) {
+					sleep(3);
 					$response = $ec2->associate_address($value, $elasticIP);
 					if (!$response->isOK()) {
 						$msg_error = Language::getTag('Error associating elastic ip', $value).printEc2Error($response); 
@@ -156,11 +157,15 @@ elseif ($action==STARTSELECT || $action==STOPSELECT || $task==CHANGESTATE) {
 		} else {
 			$ec2->start_instances($id);
 			if ($elasticIP = $gestorBD->getAssociatedIp($id)) {
+					sleep(3);
 					$response = $ec2->associate_address($id, $elasticIP);
 					if (!$response->isOK()) {
-						$msg_error = Language::getTag('Error associating elastic ip', $id).printEc2Error($response); 
-					}
-			
+						sleep(3); //wait 3 seconds more
+						$response = $ec2->associate_address($id, $elasticIP);
+						if (!$response->isOK()) {
+							$msg_error = Language::getTag('Error associating elastic ip', $id).printEc2Error($response); 
+						}
+					}	
 				}
 		}
 		$msg_ok = Language::getTag(($extra==STATERUNNING?'Instancia parada correctament':'Instancia iniciada correctament'), $id);
