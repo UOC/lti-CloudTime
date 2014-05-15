@@ -167,13 +167,14 @@ $current_amis = $gestorBD->getAmisByCourseId($course_id);
 								<option value="t1.micro">Micro</option>
 								<option value="m1.small">Small</option>
 								<option value="m1.medium">Medium</option>
+								<option value="c3.large">Large</option>
 							</select>
 							</p>
 						</div>
 					  </div>
 					  <div class="modal-footer">
 					    <form method="POST" onsubmit="return false;"><button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo Language::get('Close')?></button>
-					    <button class="btn btn-primary"  name="deleteaction" onclick="Javascript:deleteImage(this.form)"><?php echo Language::get('Elimina image')?></button>
+					    <button class="btn btn-primary"  name="deleteaction" onclick="Javascript:deleteImage(this.form);return false;"><?php echo Language::get('Elimina image')?></button>
 					    <button class="btn btn-primary"  name="launch_as_new_image" onclick="Javascript:createInstanceFromImage(this.form)"><?php echo Language::get('Launch from image')?></button>
 					    <input type="hidden" name="imageId" value="<?php echo $imageId?>" />
 						<input type="hidden" name="action" value="" />

@@ -29,14 +29,14 @@
  * Project email: campusproject@uoc.edu
  *
  **/
-define('MYAMIS','myamis');
-define('MYINSTANCES','myinstances');
-define('CHANGESTATE','changeState');
-define('STATERUNNING','running');
-define('STATESTOPING','stopping');
-define('STATETERMINATED','terminated');
-define('STATEPENDING','pending');
-define('RELOAD','reload');
+define ('MYAMIS','myamis');
+define ('MYINSTANCES','myinstances');
+define ('CHANGESTATE','changeState');
+define ('STATERUNNING','running');
+define ('STATESTOPING','stopping');
+define ('STATETERMINATED','terminated');
+define ('STATEPENDING','pending');
+define ('RELOAD','reload');
 define ('USERNAME', 'custom_username');
 define ('CONTEXT_ID', 'context_id');
 define ('INSTANCE_ID', 'resource_link_id');
@@ -61,8 +61,8 @@ define ('FULLNAME', 'fullname');
 define ('USER_ID', 'user_id');
 define ('INSTANCEC2ID', 'InstanceID');
 define ('IS_INSTRUCTOR', 'is_instructor');
-define('STOPSELECT', 'stop_selected');
-define('STARTSELECT', 'start_selected');
+define ('STOPSELECT', 'stop_selected');
+define ('STARTSELECT', 'start_selected');
 define ('SALVA_DADES', 'save');
 define ('HOURS_AUTOSTOP', 8);
 define ('CUSTOM_AWS_REGION', 'custom_aws_region');
@@ -83,4 +83,5 @@ define ('CUSTOM_INSTRUCTIONS', 'custom_instructions');
 define ('CUSTOM_AWS_USERNAME', 'custom_aws_username');
 define ('DEFAULT_USERNAME_AWS', 'ec2-user');
 define ('ASSIGN_ELASTIC_IP', 'assign_elastic_ip');
+define ('REASSIGN_ELASTIC_IP', 'reassign_elastic_ip');
 define ('RELEASE_ELASTIC_IP', 'release_elastic_ip');

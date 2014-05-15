@@ -232,15 +232,21 @@ $response = $ec2->describe_instances();
 	<div class="row-fluid">
 		<p><span class="label"><?php echo Language::get('ipAddress')?>:</span> <?php echo $current_ip?> 
 		<?php 
-			if (!$gestorBD->getAssociatedIp($instanceId)) {?>
+			$associatedIP = $gestorBD->getAssociatedIp($instanceId);
+			if (!$associatedIP) {?>
 			<input type="button" class="small btn btn-primary"  name="assignIP" onclick="Javascript:assignIPJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('assignIP')?>" />&nbsp;<a href="Javascript:showInfo('<?php echo 'assignIP'.$instanceId?>');"><i class="icon-info"></i></a>
 			<div id="<?php echo 'assignIP'.$instanceId?>" class="hide"><i class="icon-info"></i>&nbsp;<?php echo Language::getTagDouble('InfoElasticIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>')?><br><i><?php echo Language::get('assignIPShouldBeRunning');?></i></div>
 			<?php } else { ?>
-			<!--input type="button" class="small btn btn-primary"  name="disassociateIP" onclick="Javascript:disassociateIPJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('disassociateIP')?>" />&nbsp;<a href="Javascript:showInfo('<?php echo 'disassociateIP'.$instanceId?>');"><i class="icon-info"></i></a>
-			<div id="<?php echo 'disassociateIP'.$instanceId?>" class="hide"><i class="icon-info"></i>&nbsp;<?php echo Language::getTagDouble('InfoElasticDisassociateIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>')?></div-->
 			<input type="button" class="small btn btn-primary"  name="releaseIP" onclick="Javascript:releaseIPJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('releaseIP')?>" />&nbsp;<a href="Javascript:showInfo('<?php echo 'releaseIP'.$instanceId?>');"><i class="icon-info"></i></a>
 			<div id="<?php echo 'releaseIP'.$instanceId?>" class="hide"><i class="icon-info"></i>&nbsp;<?php echo Language::getTagDouble('InfoElasticReleaseIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>')?></div>				
-			<?php } ?>
+			<?php 
+			if ($current_ip!=$associatedIP && ($item->instanceState->name==STATEPENDING || $item->instanceState->name==STATERUNNING)) {?>
+			<input type="button" class="small btn btn-warning"  name="reAssignIP" onclick="Javascript:reAssignIPJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('reAssignIP')?>" />&nbsp;<a href="Javascript:showInfo('<?php echo 'reAssignIP'.$instanceId?>');"><i class="icon-info"></i></a>
+			<div id="<?php echo 'reAssignIP'.$instanceId?>" class="hide"><i class="icon-info"></i>&nbsp;<?php echo Language::getTagDouble('InfoElasticIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>')?><br><i><?php echo Language::get('reAssignIPShouldBeRunning');?></i></div>
+			<span><?php echo Language::getTagDouble('reAssignIPExplicacio', $current_ip, $associatedIP)?></span>
+			<?php
+			}
+		} ?>
 		</p>
 	</div>
 	<div class="row-fluid">

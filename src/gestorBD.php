@@ -736,8 +736,8 @@
                     if($row) {
                         $file_configuration = $row['aws_configuration'];
                         if ($file_configuration && configuration_exists($file_configuration)) {
-                            include_once(dirname(__FILE__).'/config.aws.'.$file_configuration.'.inc.php');
-                            global $current_AWS_KEY,$current_AWS_SECRET_KEY;
+                            include(dirname(__FILE__).'/config.aws.'.$file_configuration.'.inc.php');
+                            //global $current_AWS_KEY,$current_AWS_SECRET_KEY;
                             $aws_configuration = array('type' => $file_configuration, 
                             'key' => $current_AWS_KEY, 'secret' => $current_AWS_SECRET_KEY);
                         }
@@ -787,7 +787,7 @@
                 public function associateIp($instanceId, $ip)
                 {
                     $result = true;
-                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 1, ipAddress= ".$this->escapeString($ip)." 
+                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 1, ipAddress= ".$this->escapeString($ip).", elasticIPAaddress=".$this->escapeString($ip)."
                         where instanceId = ".$this->escapeString($instanceId), $this->conn);
                     return $result;           
                 }
@@ -799,7 +799,7 @@
                 public function releaseIP($instanceId)
                 {
                     $result = true;
-                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 0
+                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 0, elasticIPAaddress=
                         where instanceId = ".$this->escapeString($instanceId), $this->conn);
                     return $result;           
                 }
@@ -811,12 +811,12 @@
                  * @return [type]            [description]
                  */
                  public function getAssociatedIp($instanceId){
-                    $sql = 'select ipAddress from ec2_instance where instanceId='.$this->escapeString($instanceId).' and has_elastic_ip=1';
+                    $sql = 'select elasticIPAaddress from ec2_instance where instanceId='.$this->escapeString($instanceId).' and has_elastic_ip=1';
                     $result = $this->consulta($sql);
                     $ipAddress = false;
                     if($this->numResultats($result) > 0){
                         $rows = $this->obteObjecteComArray($result);
-                        $ipAddress = $rows['ipAddress'];
+                        $ipAddress = $rows['elasticIPAaddress'];
                         if (strlen($ipAddress)==0) {
                             $ipAddress = false;
                         }

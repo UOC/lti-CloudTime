@@ -159,3 +159,6 @@ $language['InfoElasticReleaseIP'] = 'Si alliberes la IP pots aconseguir una altr
 //$language['InfoElasticDisassociateIP'] = 'Si l\'alliberes la IP pots aconseguir una altra per&ograve; segurament no ser&agrave; la mateixa. Elastic Ips d\'Amazon &eacute;s similar a la adre&cedil;a IP est&agrave;tica en els centres de dades tradicionals, amb una difer&egrave;ncia clau. Un usuari pot assignar una adre&cedil; IP el&agrave;stica a qualsevol inst&agrave;ncia de m&agrave;quina virtual sense la ayuda de un administrador de la xarxa i sense esperes a que el DNS es propagui. M&acute;s info %saqu&iacute;%s';
 $language['Segur que vol alliberar Elastic IP per'] = 'Segur que vol alliberar Elastic IP per';
 $language['Released sucessfully to instance'] = 'Alliberada satisfact&ograve;riament la ip de la inst&agrave;cia %s';
+$language['reAssignIP'] = 'Reassignar Elastic IP';
+$language['reAssignIPExplicacio'] = 'Actualment la IP &eacute;s %s i hauria de ser %s. El problema est&agrave; en que quan s\'assignat la m&agrave;quina no estava en estat running';
+$language['Segur que vol reassingar Elastic IP per'] = 'Segur que vol reassignar l\'elastic IP per la instància';

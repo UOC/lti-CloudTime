@@ -306,7 +306,7 @@ function lti_get_lang($context) {
 				$lang="en-US";
 		}
 	}
-	
+
 	if (strlen($lang)<4){
 		switch ($lang)
 		{

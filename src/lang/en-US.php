@@ -158,3 +158,6 @@ $language['releaseIP'] = 'Release IP';
 $language['InfoElasticReleaseIP'] = 'If you release the IP you can get a new one but not the same IP. Amazon\'s elastic IP address feature is similar to static IP address in traditional data centers, with one key difference. A user can programmatically map an elastic IP address to any virtual machine instance without a network administrator\'s help and without having to wait for DNS to propagate the new binding. More info %shere%s';
 $language['Segur que vol alliberar Elastic IP per'] = 'Are you sure you want to release an Elastic IP to the instance';
 $language['Released sucessfully to instance'] = 'IP released sucessfully to instance %s';
+$language['reAssignIP'] = 'Reassign Elastic IP';
+$language['reAssignIPExplicacio'] = 'Current IP is %s  and should be %s. The problem is produced because the machine is not in running state when tried to assign the elastic ip';
+$language['Segur que vol reassingar Elastic IP per'] = 'Are you sure want to reassign Elastic IP to the instance';

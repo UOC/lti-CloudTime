@@ -157,3 +157,6 @@ $language['releaseIP'] = 'Liberar IP';
 $language['InfoElasticReleaseIP'] = 'Si liberas la IP podr&aacute;s conseguir una otra pero no ser&aacute; la misma. Elastic Ips de Amazon es similar a la dirección IP estática en los centros de datos tradicionales, con una diferencia clave. Un usuario puede mediante programación asignar una direcci&oacute;n IP el&aacute;stica a cualquier instancia de m&aacute;quina virtual sin la ayuda de un administrador de la red y sin tener que esperar a que DNS para propagar la nueva asignaci&oacute;n. M&aacute;s info %saqu&iacute;%s';
 $language['Segur que vol alliberar Elastic IP per'] = 'Seguro que quieres liberar Elastic IP para';
 $language['Released sucessfully to instance'] = 'Liberada satisfactoriamente la ip de la instacia %s';
+$language['reAssignIP'] = 'Reasignar Elastic IP';
+$language['reAssignIPExplicacio'] = 'Actualmente la ip es %s y deber&iacute;a ser %s. El problema est&aacute; en que quan se ha asignado todav&iacute;a no estaba la m&aacute;quina en running';
+$language['Segur que vol reassingar Elastic IP per'] = '¿Seguro que quiere reasignar una elastic IP para la instancia';

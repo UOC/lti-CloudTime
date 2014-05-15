@@ -143,6 +143,10 @@ elseif ($action==STARTSELECT || $action==STOPSELECT || $task==CHANGESTATE) {
 					$response = $ec2->associate_address($value, $elasticIP);
 					if (!$response->isOK()) {
 						$msg_error = Language::getTag('Error associating elastic ip', $value).printEc2Error($response); 
+						$msg_error .= '<input type="button" class="small btn btn-warning"  name="reAssignIP" onclick="Javascript:reAssignIPJS(\''. $value .'\')" value="'.Language::get('reAssignIP').'" />&nbsp;<a href="Javascript:showInfo(\'reAssignIP_general'.$value.'\');"><i class="icon-info"></i></a>
+			<div id="reAssignIP_general'.$value.'" class="hide"><i class="icon-info"></i>&nbsp;'.Language::getTagDouble('InfoElasticIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>').'<br><i>'.Language::get('reAssignIPShouldBeRunning').'</i></div>
+			<span>'.Language::getTagDouble('reAssignIPExplicacio', '', $elasticIP).'</span>';
+			
 					}
 			
 				}
@@ -164,6 +168,10 @@ elseif ($action==STARTSELECT || $action==STOPSELECT || $task==CHANGESTATE) {
 						$response = $ec2->associate_address($id, $elasticIP);
 						if (!$response->isOK()) {
 							$msg_error = Language::getTag('Error associating elastic ip', $id).printEc2Error($response); 
+							$msg_error .= '<input type="button" class="small btn btn-warning"  name="reAssignIP" onclick="Javascript:reAssignIPJS(\''. $id .'\')" value="'.Language::get('reAssignIP').'" />&nbsp;<a href="Javascript:showInfo(\'reAssignIP_general'.$id.'\');"><i class="icon-info"></i></a>
+			<div id="reAssignIP_general'.$id.'" class="hide"><i class="icon-info"></i>&nbsp;'.Language::getTagDouble('InfoElasticIP', '<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html" target="_blank">', '</a>').'<br><i>'.Language::get('reAssignIPShouldBeRunning').'</i></div>
+			<span>'.Language::getTagDouble('reAssignIPExplicacio', '', $elasticIP).'</span>';
+
 						}
 					}	
 				}
@@ -222,7 +230,7 @@ elseif ($action==ASSIGN_ELASTIC_IP) {
 		$response = $ec2->associate_address($assign_elastic_ip_instance, $elasticIP);
 		if ($response->isOK()) {
 			if ($gestorBD->associateIp($assign_elastic_ip_instance, $elasticIP)) {
-				 $msg_ok = Language::getTagDouble('Associated sucessfully to instance', $assign_elastic_ip_instance);
+				 $msg_ok = Language::getTagDouble('IP Associated sucessfully to instance', $elasticIP, $assign_elastic_ip_instance);
 			}
 			else {
 				$response = $ec2->release_address(array('PublicIp'=>$elasticIP));
@@ -235,6 +243,26 @@ elseif ($action==ASSIGN_ELASTIC_IP) {
 		}
 	} else {
 		$msg_error = Language::getTag('Error allocating elastic ip', $assign_elastic_ip_instance).printEc2Error($response);
+	}
+}
+elseif ($action==REASSIGN_ELASTIC_IP) {
+	$assign_elastic_ip_instance = isset($_POST['assignIpInstance'])?$_POST['assignIpInstance']:false;
+
+	$elasticIP = $gestorBD->getAssociatedIp($assign_elastic_ip_instance);
+	//Associate to instance
+	$response = $ec2->associate_address($assign_elastic_ip_instance, $elasticIP);
+	if ($response->isOK()) {
+		if ($gestorBD->associateIp($assign_elastic_ip_instance, $elasticIP)) {
+			 $msg_ok = Language::getTagDouble('IP Associated sucessfully to instance', $elasticIP, $assign_elastic_ip_instance);
+		}
+		else {
+			$response = $ec2->release_address(array('PublicIp'=>$elasticIP));
+			$msg_error = Language::getTagDouble('Error associating instance to ip in db', $assign_elastic_ip_instance, $elasticIP); 
+		}	
+	}
+	else {
+		$response = $ec2->release_address(array('PublicIp'=>$elasticIP));
+		$msg_error = Language::getTag('Error associating elastic ip', $assign_elastic_ip_instance).printEc2Error($response); 
 	}
 }
 elseif ($action==RELEASE_ELASTIC_IP) {
@@ -473,6 +501,15 @@ function assignIPJS(id) {
         if (result) {
 			var form =  document.getElementById("form"+id);
 			form.action.value = "<?php echo ASSIGN_ELASTIC_IP;?>";
+			form.submit();
+		}
+	});
+}
+function reAssignIPJS(id) {
+	bootbox.confirm("<?php echo Language::get('Segur que vol reassingar Elastic IP per')?> "+id+"?", function(result) {
+        if (result) {
+			var form =  document.getElementById("form"+id);
+			form.action.value = "<?php echo REASSIGN_ELASTIC_IP;?>";
 			form.submit();
 		}
 	});
