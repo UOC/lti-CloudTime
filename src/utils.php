@@ -128,10 +128,10 @@ function sanitizeFilename($f) {
  */
 function show_error($msg) {
 	$course_title = $title = 'Error';
-	require_once('header.php');
-	require_once('end_header_navbar.php');
+	require_once('includes/header.php');
+	require_once('includes/end_header_navbar.php');
 	echo '<div class="alert alert-error">'.$msg.'</div>';
-	require_once('footer.php');
+	require_once('includes/footer.php');
 	exit();
 }
 

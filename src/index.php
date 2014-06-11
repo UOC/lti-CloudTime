@@ -150,6 +150,7 @@ function lti_init() {
 			    	$_SESSION[COURSE_ID] = $course['id'];
 			    	$_SESSION[CUSTOM_AWS_REGION] = $course['amazon_region'];
 			    	$_SESSION[IS_INSTRUCTOR] = $is_instructor;
+			    	$_SESSION[IS_ADMINISTRATOR] = $admin;
 			    	$_SESSION[CONTEXT_ID] = lti_get_context_id($context);
 			    	$_SESSION[INSTANCE_ID] = lti_get_instance_id($context);
 			    	$_SESSION[SESSION_ID_FIELD] = lti_get_session_id($context);

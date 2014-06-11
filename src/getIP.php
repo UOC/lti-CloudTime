@@ -100,7 +100,7 @@ if ($InstanceId && $task==CHANGESTATE) {
 }
 
 $title = Language::get('Ec2 instance');
-include ('header.php');
+include ('includes/header.php');
 ?>
 <script type="text/javascript">
 function canviaEstat(estat_actual, id) {
@@ -128,10 +128,10 @@ if (!$InstanceId) {
 		<input type="hidden" name="extra" value="" />
 		<?php 
 			// Instantiate the AmazonEC2 class			
-			include_once('myinstancesStudent.php');
+			include_once('includes/myinstancesStudent.php');
 		?>
 		</form>
 <?php } 
-include('footer.php');
+include('includes/footer.php');
 $gestorBD->desconectar();
 ?>
