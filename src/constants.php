@@ -61,6 +61,7 @@ define ('FULLNAME', 'fullname');
 define ('USER_ID', 'user_id');
 define ('INSTANCEC2ID', 'InstanceID');
 define ('IS_INSTRUCTOR', 'is_instructor');
+define ('IS_ADMINISTRATOR', 'is_administrator');
 define ('STOPSELECT', 'stop_selected');
 define ('STARTSELECT', 'start_selected');
 define ('SALVA_DADES', 'save');
