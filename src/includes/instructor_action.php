@@ -219,6 +219,17 @@ elseif ($action==DELETE_IMAGE) {
 		$msg_error = Language::getTag('Error eliminant imatge amazon', $delete_image).printEc2Error($response);
 	}
 }
+elseif ($action==NOT_STOP_INSTANCE || $action==AUTO_STOP_INSTANCE) {
+	$assign_elastic_ip_instance = isset($_POST['assignIpInstance'])?$_POST['assignIpInstance']:false;
+	$allow_not_stop = $action==NOT_STOP_INSTANCE;
+	//Get the new elastic IP
+	if ($gestorBD->allowInstanceAutoStop($assign_elastic_ip_instance, $allow_not_stop)) {
+		 $msg_ok = Language::getTag($allow_not_stop?'Behauviour of instance is not stop automatically':'Behauviour of instance is stop automatically');
+	}
+	else {
+		$msg_error = Language::getTag('Error associating instance to ip in db', $assign_elastic_ip_instance); 
+	}	
+}
 elseif ($action==CREATE_IMAGE_FROM_INSTANCE) {
 	$name =isset($_POST['new_image_name'])?$_POST['new_image_name']:$course_name.'_'.$create_instanceId.'_'.time();
 	$name = str_replace(':','',$name);
