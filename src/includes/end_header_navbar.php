@@ -26,13 +26,17 @@
 		$parts = explode('/', $currentFile);
 		$currentFile = $parts[count($parts) - 1];
 		$str = $currentFile=='admin.php'?'site':'administrator';
-		
 ?>			
 			<div>
 				<div class="span10"></div>			
 				<div class="span2">
 					<form method="post" action="<?php echo $currentFile=='admin.php'?'index_instructor.php':'admin.php';?>">
 						<input type="submit" name="admin" value="<?php echo Language::get($str) ?>" id="admin_submit">
+					<?php if ($currentFile=='admin.php') {
+						?>
+						<a href="list_instances.php" data-toggle="modal" class="btn btn-info"><?php echo Language::get('List instances')?></a>
+
+					<?php } ?>
 					</form>	
 				</div>
 			</div>
