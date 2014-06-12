@@ -1,7 +1,7 @@
       <hr>
 
 	      <footer>
-	              <?php include(dirname(__FILE__).'/logos_footer.php');?></a>
+	              <?php include(dirname(__FILE__).'/logos_footer.php');?>
 	      </footer>
     </div>
 

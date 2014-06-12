@@ -109,6 +109,7 @@ CREATE TABLE `aws_configuration` (
   `aws_cloudfront_private_key_pem` mediumtext DEFAULT NULL COMMENT 'The contents of the *.pem private key that matches with the CloudFront key-pair ID. Found in the AWS Security Credentials. This can be set programmatically with AmazonCloudFront::set_private_key().
 ',
   `aws_enable_extensions` bit DEFAULT 0 COMMENT ' Set the value to true to enable autoloading for classes not prefixed with "Amazon" or "CF". If enabled, load sdk.class.php last to avoid clobbering any other autoloaders.',
+  `deleted` bit DEFAULT 0 COMMENT ' Set as deleted',
   PRIMARY KEY (`id`),
   KEY `aws_canonical_name` (`aws_canonical_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

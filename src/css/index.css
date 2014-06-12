@@ -519,3 +519,17 @@ select {
 		li.L5,
 		li.L7,
 		li.L9 { background: #eee }
+
+#admin_submit, #site_submit {
+	background: #E8F3FF;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; /* future proofing */
+	-khtml-border-radius: 5px; /* for old Konqueror browsers */
+	margin-left: 10px;
+	border: 1px solid #0085B2;
+	color: #0085B2;
+	padding: 1px;
+	width: 100px;
+	cursor: pointer;
+}		

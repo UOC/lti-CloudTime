@@ -824,6 +824,89 @@
                     return  $ipAddress;   
                 }                
 
+                /**
+                 * Get all AWS configuration
+                 * @param  [type] $show_deleted boolean
+                 * @return [type]               [description]
+                 */
+                 public function get_aws_configuration($show_deleted=false) {
+                     $result = $this->consulta('SELECT * FROM aws_configuration '.
+                                        'WHERE deleted = 0');
+                     if($this->numResultats($result) > 0){
+                        $rows = $this->obteComArray($result);
+                     return $rows;
+                    }else{
+                        return false;
+                    }
+                }
+
+                /**
+                 * Get AWS by Id
+                 * @param  [type] $id [description]
+                 * @return [type]     [description]
+                 */
+                 public function get_aws_configuration_by_id($id) {
+                     $result = $this->consulta('SELECT * FROM aws_configuration '.
+                                        'WHERE id = '.$id);
+                     if($this->numResultats($result) > 0){
+                        $row = $this->obteObjecteComArray($result);
+                     return $row;
+                    }else{
+                        return false;
+                    }
+                }
+                
+                /**
+                 * Save configuration AWS (create or update it)
+                 * @param  [type] $id                             [description]
+                 * @param  [type] $aws_canonical_name             [description]
+                 * @param  [type] $aws_key                        [description]
+                 * @param  [type] $aws_secret                     [description]
+                 * @param  [type] $aws_account_id                 [description]
+                 * @param  [type] $aws_canonical_id               [description]
+                 * @param  [type] $aws_mfa_serial                 [description]
+                 * @param  [type] $aws_cloudfront_keypair_id      [description]
+                 * @param  [type] $aws_cloudfront_private_key_pem [description]
+                 * @return [type]                                 [description]
+                 */
+                public function save_aws_configuration($id, $aws_canonical_name, $aws_key, $aws_secret, $aws_account_id, 
+                    $aws_canonical_id, $aws_mfa_serial, $aws_cloudfront_keypair_id, $aws_cloudfront_private_key_pem) {
+                    $saved = false;
+                    $sql = '';
+                    if ($id>0) {
+                        $sql = "UPDATE aws_configuration set aws_canonical_name =".$this->escapeString($aws_canonical_name).",
+                        aws_key =".$this->escapeString($aws_key).",
+                        aws_secret =".$this->escapeString($aws_secret).",
+                        aws_account_id =".$this->escapeString($aws_account_id).",
+                        aws_canonical_id =".$this->escapeString($aws_canonical_id).",
+                        aws_mfa_serial =".$this->escapeString($aws_mfa_serial).",
+                        aws_cloudfront_keypair_id =".$this->escapeString($aws_cloudfront_keypair_id).",
+                        aws_cloudfront_private_key_pem =".$this->escapeString($aws_cloudfront_private_key_pem)." where id = ".$this->escapeString($id);
+                    } else {
+                        $sql = "INSERT INTO aws_configuration (aws_canonical_name,aws_key,aws_secret,aws_account_id,aws_canonical_id,aws_mfa_serial,
+                            aws_cloudfront_keypair_id,aws_cloudfront_private_key_pem)
+                            VALUES
+                            (".$this->escapeString($aws_canonical_name).", ".$this->escapeString($aws_key).", ".$this->escapeString($aws_secret).", ".
+                                $this->escapeString($aws_account_id).", ".$this->escapeString($aws_canonical_id).", ".$this->escapeString($aws_mfa_serial).",
+                                ".$this->escapeString($aws_cloudfront_keypair_id).", ".$this->escapeString($aws_cloudfront_private_key_pem).")";
+                    }
+                    $saved = $this->consulta($sql, $this->conn);
+                    return $saved;
+                }
+
+                /**
+                 * Delete AWS Configuration
+                 * @param  [type] $id [description]
+                 * @return [type]     [description]
+                 */
+                public function delete_aws_configuration($id) {
+                    $deleted = false;
+                    $sql = "UPDATE aws_configuration set deleted =1 ".
+                         "where id = ".$this->escapeString($id);
+                    $deleted = $this->consulta($sql, $this->conn);
+                    return $deleted;
+                }
+
 
         }
 

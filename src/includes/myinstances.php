@@ -29,7 +29,7 @@
  * Project email: campusproject@uoc.edu
  *
  **/
-require_once dirname(__FILE__).'/utils.php';
+require_once dirname(__FILE__).'/../utils.php';
 
 $required_class = 'org/osid/shared/SharedException.php';
 $exists= filexists_aws ($required_class);

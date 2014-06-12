@@ -86,3 +86,4 @@ define ('DEFAULT_USERNAME_AWS', 'ec2-user');
 define ('ASSIGN_ELASTIC_IP', 'assign_elastic_ip');
 define ('REASSIGN_ELASTIC_IP', 'reassign_elastic_ip');
 define ('RELEASE_ELASTIC_IP', 'release_elastic_ip');
+define ('DELETE_AWS_CONFIGURATION', 'delete_aws_configuration');

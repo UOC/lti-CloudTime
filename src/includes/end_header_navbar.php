@@ -28,10 +28,13 @@
 		$str = $currentFile=='admin.php'?'site':'administrator';
 		
 ?>			
-			<div style="float:right">										
-				<form method="post" action="<?php echo $currentFile=='admin.php'?'index_instructor.php':'admin.php';?>">
-					<input type="submit" name="admin" value="<?php echo Language::get($str) ?>" id="admin_submit">
-				</form>						
+			<div>
+				<div class="span10"></div>			
+				<div class="span2">
+					<form method="post" action="<?php echo $currentFile=='admin.php'?'index_instructor.php':'admin.php';?>">
+						<input type="submit" name="admin" value="<?php echo Language::get($str) ?>" id="admin_submit">
+					</form>	
+				</div>
 			</div>
 <?php  }			?>
 		</div>
