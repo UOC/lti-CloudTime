@@ -250,6 +250,17 @@ $response = $ec2->describe_instances();
 		</p>
 	</div>
 	<div class="row-fluid">
+		<p><span class="label"><?php echo Language::get('InstanceNotStop')?>:</span> 
+		<?php 
+			$not_stop_auto = $gestorBD->getInstanceNotStopAutomatically($instanceId);
+			if ($not_stop_auto) {?>
+			<input type="button" class="small btn btn-danger"  name="auto_stop" onclick="Javascript:allowAutoStopInstanceJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('allow_auto_stop')?>" />
+			<?php } else { ?>
+			<input type="button" class="small btn btn-danger"  name="not_stop" onclick="Javascript:notStopInstanceJS('<?php echo $instanceId ?>')" value="<?php echo Language::get('not_auto_stop')?>" />			
+		<?php } ?>
+		</p>
+	</div>
+	<div class="row-fluid">
 		<form method="POST">
 			<table>
 				<tr>
