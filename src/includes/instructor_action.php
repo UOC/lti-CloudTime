@@ -31,6 +31,7 @@ if (!$custom_instructions || strlen($custom_instructions)==0) {
 }
 
 $ec2 = new AmazonEC2(array('key' => AWS_KEY, 'secret' => AWS_SECRET_KEY));
+$ec2->disable_ssl_verification();
 if ($_SESSION[CUSTOM_AWS_REGION] && strlen($_SESSION[CUSTOM_AWS_REGION]))
 $ec2->set_region($_SESSION[CUSTOM_AWS_REGION]);
 $msg_ok = false; 

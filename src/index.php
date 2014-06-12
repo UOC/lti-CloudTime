@@ -116,8 +116,8 @@ function lti_init() {
 			    
 				    //Check if course exists
 					$course_name = lti_get_course_name($context);
-					$course_key = $context->getResourceKey();
-					//$course_key = $context->getCourseKey();
+					//$course_key = $context->getResourceKey();
+					$course_key = $context->getCourseKey();
 					
 			
 					$course = $gestorBD->get_course_by_courseKey($course_key);

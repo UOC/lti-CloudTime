@@ -570,7 +570,7 @@ class CFRuntime
 	 */
 	public function disable_ssl_verification($ssl_verification = false)
 	{
-		trigger_error('Disabling the verification of SSL certificates can lead to man-in-the-middle attacks. It is potentially unsafe and highly discouraged.', E_USER_WARNING);
+		//trigger_error('Disabling the verification of SSL certificates can lead to man-in-the-middle attacks. It is potentially unsafe and highly discouraged.', E_USER_WARNING);
 		$this->ssl_verification = $ssl_verification;
 		return $this;
 	}

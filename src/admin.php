@@ -84,6 +84,8 @@ $aws_configurations = $gestorBD->get_aws_configuration($show_deleted);
 include('includes/header.php');
 ?>
 <?php include('includes/end_header_navbar.php');?>		
+	<br>
+	<br>
 	<div class="container">
 		    		<div class="row">
 		    			<?php if ($msg_ok) {

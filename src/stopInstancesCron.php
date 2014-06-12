@@ -39,6 +39,7 @@
 	$gestorBD = new GestorBD();
 	$titulo = 'Intancias paradas';	
 	$ec2 = new AmazonEC2(array('key' => AWS_KEY, 'secret' => AWS_SECRET_KEY));
+	$ec2->disable_ssl_verification();
 	
 //abertranb add field current_aws_configuration
 	$last_aws_configuration = array('type' => DEFAULT_AWS_ACCOUNT, 
@@ -65,6 +66,7 @@
 				//new ec2
 				$ec2 = new AmazonEC2(array('key' => $current_aws_configuration['key'],
 					 'secret' => $current_aws_configuration['secret']));
+				$ec2->disable_ssl_verification();
 				$last_aws_configuration = $current_aws_configuration;
 			}
 			$last_keyName = $keyName;
