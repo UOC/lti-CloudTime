@@ -111,7 +111,7 @@
                 */
                 public function retornaTotesLesInstancies()
                 {
-                	$result = $this->consulta("SELECT instanceId, amazon_region, keyName  FROM ec2_instance ");
+                	$result = $this->consulta("SELECT *, (not_stop=1) as not_stop_boolean  FROM ec2_instance ");
                 	if($this->numResultats($result) > 0){
                 		$rows = $this->obteComArray($result);
                 		return $rows;
@@ -735,11 +735,11 @@
                     $row = $this->get_course_by_courseKey($course_id);
                     if($row) {
                         $file_configuration = $row['aws_configuration'];
-                        if ($file_configuration && configuration_exists($file_configuration)) {
-                            include(dirname(__FILE__).'/config.aws.'.$file_configuration.'.inc.php');
+                        $configuration = $this->get_aws_configuration_by_aws_canonical_name($file_configuration);
+                        if ($configuration) {
                             //global $current_AWS_KEY,$current_AWS_SECRET_KEY;
                             $aws_configuration = array('type' => $file_configuration, 
-                            'key' => $current_AWS_KEY, 'secret' => $current_AWS_SECRET_KEY);
+                            'key' => $configuration['aws_key'], 'secret' => $configuration['aws_secret']);
                         }
                     }
                     return $aws_configuration;
@@ -787,7 +787,7 @@
                 public function associateIp($instanceId, $ip)
                 {
                     $result = true;
-                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 1, ipAddress= ".$this->escapeString($ip).", elasticIPAaddress=".$this->escapeString($ip)."
+                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 1, ipAddress= ".$this->escapeString($ip).", elasticIPAddress=".$this->escapeString($ip)."
                         where instanceId = ".$this->escapeString($instanceId), $this->conn);
                     return $result;           
                 }
@@ -799,7 +799,7 @@
                 public function releaseIP($instanceId)
                 {
                     $result = true;
-                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 0, elasticIPAaddress=
+                    $result = $this->consulta("UPDATE ec2_instance set has_elastic_ip = 0, elasticIPAddress=
                         where instanceId = ".$this->escapeString($instanceId), $this->conn);
                     return $result;           
                 }
@@ -811,12 +811,12 @@
                  * @return [type]            [description]
                  */
                  public function getAssociatedIp($instanceId){
-                    $sql = 'select elasticIPAaddress from ec2_instance where instanceId='.$this->escapeString($instanceId).' and has_elastic_ip=1';
+                    $sql = 'select elasticIPAddress from ec2_instance where instanceId='.$this->escapeString($instanceId).' and has_elastic_ip=1';
                     $result = $this->consulta($sql);
                     $ipAddress = false;
                     if($this->numResultats($result) > 0){
                         $rows = $this->obteObjecteComArray($result);
-                        $ipAddress = $rows['elasticIPAaddress'];
+                        $ipAddress = $rows['elasticIPAddress'];
                         if (strlen($ipAddress)==0) {
                             $ipAddress = false;
                         }
@@ -848,6 +848,22 @@
                  public function get_aws_configuration_by_id($id) {
                      $result = $this->consulta('SELECT * FROM aws_configuration '.
                                         'WHERE id = '.$id);
+                     if($this->numResultats($result) > 0){
+                        $row = $this->obteObjecteComArray($result);
+                     return $row;
+                    }else{
+                        return false;
+                    }
+                }
+
+                /**
+                 * Get AWS by aws_canonical_name
+                 * @param  [type] $aws_canonical_name [description]
+                 * @return [type]     [description]
+                 */
+                 public function get_aws_configuration_by_aws_canonical_name($aws_canonical_name) {
+                     $result = $this->consulta('SELECT * FROM aws_configuration '.
+                                        'WHERE aws_canonical_name = '.$this->escapeString($aws_canonical_name));
                      if($this->numResultats($result) > 0){
                         $row = $this->obteObjecteComArray($result);
                      return $row;
@@ -907,6 +923,36 @@
                     return $deleted;
                 }
 
+                /**
+                 * Get if instance allow not stop automatically
+                 * @param  [type] $instanceId [description]
+                 * @return boolean            [description]
+                 */
+                 public function getInstanceNotStopAutomatically($instanceId){
+                    $sql = 'select (not_stop=1) as not_stop_boolean from ec2_instance where instanceId='.$this->escapeString($instanceId);
+                    $result = $this->consulta($sql);
+                    $not_stop = false;
+                    if($this->numResultats($result) > 0){
+                        $rows = $this->obteObjecteComArray($result);
+                        $not_stop = $rows['not_stop_boolean']==1;
+                    }    
+                    return  $not_stop;   
+                }   
+
+                /**
+                 * Allow instance auto stop
+                 * @param  [type] $instanceId [description]
+                 * @param  [type] $not_stop      [description]
+                 * @return [type]             [description]
+                 */
+                public function allowInstanceAutoStop($instanceId, $not_stop=false)
+                {
+                    $result = true;
+                    $result = $this->consulta("UPDATE ec2_instance set not_stop = ".($not_stop?1:0)."
+                        where instanceId = ".$this->escapeString($instanceId), $this->conn);
+                    return $result;           
+                }
+             
 
         }
 

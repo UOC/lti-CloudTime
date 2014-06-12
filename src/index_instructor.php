@@ -139,6 +139,24 @@ function releaseIPJS(id) {
 		}
 	});
 }
+function notStopInstanceJS(id) {
+	bootbox.confirm("<?php echo Language::get('Segur que vol permetre que no apagui')?> "+id+"?", function(result) {
+        if (result) {
+			var form =  document.getElementById("form"+id);
+			form.action.value = "<?php echo NOT_STOP_INSTANCE;?>";
+			form.submit();
+		}
+	});
+}
+function allowAutoStopInstanceJS(id) {
+	bootbox.confirm("<?php echo Language::get('Segur que vol permetre que apagui')?> "+id+"?", function(result) {
+        if (result) {
+			var form =  document.getElementById("form"+id);
+			form.action.value = "<?php echo AUTO_STOP_INSTANCE;?>";
+			form.submit();
+		}
+	});
+}
 
 function showInfo(name_info) {
 	var msg = $('#'+name_info).html();	

@@ -87,3 +87,6 @@ define ('ASSIGN_ELASTIC_IP', 'assign_elastic_ip');
 define ('REASSIGN_ELASTIC_IP', 'reassign_elastic_ip');
 define ('RELEASE_ELASTIC_IP', 'release_elastic_ip');
 define ('DELETE_AWS_CONFIGURATION', 'delete_aws_configuration');
+
+define ('NOT_STOP_INSTANCE', 'no_stop_instance');
+define ('AUTO_STOP_INSTANCE', 'auto_stop_instance');

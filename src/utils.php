@@ -128,19 +128,9 @@ function sanitizeFilename($f) {
  */
 function show_error($msg) {
 	$course_title = $title = 'Error';
-	require_once('includes/header.php');
-	require_once('includes/end_header_navbar.php');
+	require_once(dirname(__FILE__).'/includes/header.php');
+	require_once(dirname(__FILE__).'/includes/end_header_navbar.php');
 	echo '<div class="alert alert-error">'.$msg.'</div>';
-	require_once('includes/footer.php');
+	require_once(dirname(__FILE__).'/includes/footer.php');
 	exit();
-}
-
-/**
- * Returns if file configuration exists
- * @param  [type] $aws_conf [description]
- * @return boolean
- */
-function configuration_exists($aws_conf) {
-	return  file_exists(dirname(__FILE__).'/config.aws.'.$aws_conf.'.inc.php');
-
 }

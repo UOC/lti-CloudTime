@@ -52,6 +52,10 @@
 
 		$instanceId	= $instance['instanceId'];
 		$region	= $instance['amazon_region'];
+		if ($instance['not_stop_boolean']==1) {
+			continue;
+		}
+
 
 //abertranb add field current_aws_configuration
 		$keyName = $instance['keyName'];
