@@ -51,13 +51,9 @@
 	  </li>
 	  <li class="active"><?php echo $InstanceId?></li>
 	</ul>
-	<ul class="breadcrumb">
-	  <li>
-	    <a href="index_instructor.php"><?php echo Language::get('home') ?></a> <span class="divider">></span>
-	  </li>
-	  <li class="active"><?php echo $InstanceId?></li>
-	</ul>
 <?php
 } ?>
 </div>
+<br>
+<?php if ($is_administrator) {?><br><?php }?>
 <div class="container">

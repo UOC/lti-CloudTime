@@ -118,7 +118,7 @@ function refresca() {
 </script>
 <?php	
 $show_breadbrumbs = true;
-include_once('end_header_navbar.php');
+include_once('includes/end_header_navbar.php');
 if (!$InstanceId) {
 	echo(Language::get("no tens instancies assignades"));
 } else {?>
