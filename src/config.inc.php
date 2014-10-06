@@ -27,41 +27,41 @@ require_once('gestorBD.php');
  * @var unknown_type
  */
 define('BD_HOST', 'localhost');
-define('BD_NAME', 'uoc_gestio_aws');
-define('BD_USERNAME', 'root');
-define('BD_PASSWORD', 'maradona');
+define('BD_NAME', 'YOUR DATABASE NAME');
+define('BD_USERNAME', 'YOUR DB USER');
+define('BD_PASSWORD', 'YOUR DB PASSWORD');
 
 
 //Default configuration
 /**
  * 	Amazon Web Services Key. Found in the AWS Security Credentials. You can also pass this value as the first parameter to a service constructor.
  */
-$current_AWS_KEY = '';
+$current_AWS_KEY = 'AKIAJWQA7TDPWI5LCQIA';
 
 /**
  * 	Amazon Web Services Secret Key. Found in the AWS Security Credentials. You can also pass this value as the second parameter to a service constructor.
  */
-$current_AWS_SECRET_KEY = '';
+$current_AWS_SECRET_KEY = 'iG4QHd9IznhXMamQlJcmI2vWqZ6e8Cza5LWvR185';
 
 /**
  * 	Folder to store file pems and distribute to students, the server should be able to write it but it will not have http acces
  */
-$current_PEM_PROTECTED_FOLDER = '/path/to/shared/pem/folder';
+$current_PEM_PROTECTED_FOLDER = '/var/www/gestioaws_files';
 
 /**
  * 	Amazon Account ID without dashes. Used for identification with Amazon EC2. Found in the AWS Security Credentials.
  */
-$current_AWS_ACCOUNT_ID = '';
+$current_AWS_ACCOUNT_ID = '7201-5242-6394';
 
 /**
  * 	Your CanonicalUser ID. Used for setting access control settings in AmazonS3. Found in the AWS Security Credentials.
  */
-$current_AWS_CANONICAL_ID = '';
+$current_AWS_CANONICAL_ID = '3cb12a631469fceddf0f16a1045aa4d51cbcb1b395051b8e1600f6f131912ea';
 
 /**
  * 	Your CanonicalUser DisplayName. Used for setting access control settings in AmazonS3. Found in the AWS Security Credentials (i.e. "Welcome, AWS_CANONICAL_NAME").
  */
-$current_AWS_CANONICAL_NAME = '';
+$current_AWS_CANONICAL_NAME = 'campusapps';
 
 /**
  * 	12-digit serial number taken from the Gemalto device used for Multi-Factor Authentication. Ignore this if you're not using MFA.
