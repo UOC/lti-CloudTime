@@ -51,7 +51,7 @@ CREATE TABLE `ec2_instance` (
   `created` datetime DEFAULT NULL,
   `amazon_region` varchar(80) DEFAULT NULL,
   `has_elastic_ip` bit DEFAULT 0,
-  `elasticIPAddress` varchar(20) default null; 
+  `elasticIPAddress` varchar(20) DEFAULT NULL, 
   `not_stop` bit DEFAULT 0,
   PRIMARY KEY (`instanceId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
