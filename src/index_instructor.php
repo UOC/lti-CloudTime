@@ -211,7 +211,8 @@ function assignStudents(form, assign) {
 	}
 	for (i=select.options.length-1; i>=0; i--) {
 			select.options[i].selected = true;
-		}
+	}
+	form.action.value="<?php echo ASSIGN_USERS;?>";		
 	form.submit();
 }
 </script>

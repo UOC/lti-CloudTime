@@ -296,7 +296,7 @@ $response = $ec2->describe_instances();
 				</tr> 	
 			</table>	
 			<input type="hidden" name="instanceId" value="<?php echo $instanceId?>" />
-			<input type="hidden" name="action" value="<?php echo ASSIGN_USERS;?>" />
+			<input type="hidden" name="action" value="" />
 		</form>
 	</div>
   </div>
